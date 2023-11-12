@@ -1,64 +1,107 @@
 return {
-  'nvim-lualine/lualine.nvim',
-  event = 'VeryLazy',
+  "nvim-lualine/lualine.nvim",
+  event = "VeryLazy",
+  init = function()
+    vim.g.lualine_laststatus = vim.o.laststatus
+    if vim.fn.argc(-1) > 0 then
+      vim.o.statusline = " "
+    else
+      vim.o.laststatus = 0
+    end
+  end,
   config = function()
-    local colors = {
-      blue = '#268bd2',
-      cyan = '#79dac8',
-      black = '#080808',
-      white = '#c6c6c6',
-      red = '#ff5189',
-      violet = '#d183e8',
-      grey = '#303030',
-    }
-
-    local bubbles_theme = {
-      normal = {
-        a = { fg = colors.black, bg = colors.violet },
-        b = { fg = colors.white, bg = colors.grey },
-        c = { fg = colors.black, bg = colors.black },
-      },
-
-      insert = { a = { fg = colors.black, bg = colors.blue } },
-      visual = { a = { fg = colors.black, bg = colors.cyan } },
-      replace = { a = { fg = colors.black, bg = colors.red } },
-
-      inactive = {
-        a = { fg = colors.white, bg = colors.black },
-        b = { fg = colors.white, bg = colors.black },
-        c = { fg = colors.black, bg = colors.black },
-      },
-    }
-
-    require('lualine').setup {
+    -- local wpm = require("wpm")
+    require("lualine").setup({
       options = {
-        theme = 'ayu_mirage',
-        component_separators = '|',
-        section_separators = { left = '', right = '' },
-        disabled_filetypes = { 'dashboard' },
+        icons_enabled = true,
+        -- theme = "onedark",
+        -- component_separators = { left = "", right = "" },
+        -- section_separators = { left = '', right = ''},
+        disabled_filetypes = {},
+        always_divide_middle = true,
+        globalstatus = true,
       },
       sections = {
-        lualine_a = {
-          { 'mode', separator = { left = '' }, right_padding = 2 },
+        lualine_a = { "mode", "tab" },
+        lualine_b = { "branch" },
+        lualine_c = {
+          {
+            "diff",
+            symbols = {
+              added = " ",
+              modified = " ",
+              removed = " ",
+            },
+            source = function()
+              local gitsigns = vim.b.gitsigns_status_dict
+              if gitsigns then
+                return {
+                  added = gitsigns.added,
+                  modified = gitsigns.changed,
+                  removed = gitsigns.removed,
+                }
+              end
+            end,
+          },
+          "filetype",
         },
-        lualine_b = { 'filename', 'branch' },
-        lualine_c = { 'fileformat' },
-        lualine_x = {},
-        lualine_y = { 'filetype', 'progress' },
+        lualine_x = {
+          {
+            require("noice").api.status.command.get,
+            cond = require("noice").api.status.command.has,
+            color = { fg = "#ff9e64" },
+          },
+          {
+            require("noice").api.status.mode.get,
+            cond = require("noice").api.status.mode.has,
+            color = { fg = "#ff9e64" },
+          },
+          {
+            require("noice").api.status.search.get,
+            cond = require("noice").api.status.search.has,
+            color = { fg = "#ff9e64" },
+          },
+          {
+            function()
+              return "  " .. require("dap").status()
+            end,
+            cond = function()
+              return package.loaded["dap"] and require("dap").status() ~= ""
+            end,
+            color = { fg = "#ff9e64" },
+          },
+
+          {
+            "diagnostics",
+            symbols = {
+              error = " ",
+              warn = " ",
+              info = " ",
+              hint = " ",
+            },
+          },
+          "fileformat",
+        },
+        lualine_y = {
+          { "progress", separator = " ", padding = { left = 1, right = 0 } },
+          { "location", padding = { left = 0, right = 1 } },
+        },
         lualine_z = {
-          { 'location', separator = { right = '' }, left_padding = 2 },
+          function()
+            return " " .. os.date("%R")
+          end,
         },
       },
       inactive_sections = {
-        lualine_a = { 'filename' },
+        lualine_a = {},
         lualine_b = {},
-        lualine_c = {},
-        lualine_x = {},
+        lualine_c = { "filename" },
+        lualine_x = { "location" },
         lualine_y = {},
-        lualine_z = { 'location' },
+        lualine_z = {},
       },
       tabline = {},
-      extensions = {},
-    }
+      extensions = { "nvim-tree" },
+    })
   end,
 }

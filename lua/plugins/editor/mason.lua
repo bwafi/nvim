@@ -1,51 +1,51 @@
 return {
-  'williamboman/mason.nvim',
-  cmd = 'Mason',
-  keys = { { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' } },
-  build = ':MasonUpdate',
+  "williamboman/mason.nvim",
+  cmd = "Mason",
+  keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
+  build = ":MasonUpdate",
   opts = {
     ensure_installed = {
-      'shfmt',
+      "shfmt",
       -- lua stuff
-      'lua-language-server',
-      'stylua',
+      "lua-language-server",
+      "stylua",
 
       -- web dev stuff
-      'css-lsp',
-      'html-lsp',
-      'emmet-language-server',
+      "css-lsp",
+      "html-lsp",
+      "emmet-language-server",
       -- "emmet-ls",
-      'typescript-language-server',
-      'prettierd',
-      'shfmt',
-      'tailwindcss-language-server',
-      'eslint_d',
-      'prisma-language-server',
-      'json-lsp',
-      'js-debug-adapter',
-      'vue-language-server',
+      -- 'typescript-language-server',
+      "prettierd",
+      "shfmt",
+      "tailwindcss-language-server",
+      "eslint_d",
+      "prisma-language-server",
+      "json-lsp",
+      "js-debug-adapter",
+      "vue-language-server",
 
       -- sql
-      'sqlls',
-      'sql-formatter',
+      "sqlls",
+      "sql-formatter",
 
       -- go
-      'gopls',
-      'goimports-reviser',
-      'golangci-lint',
-      'golines',
+      "gopls",
+      "goimports-reviser",
+      "golangci-lint",
+      "golines",
     },
   },
   config = function(_, opts)
-    require('mason').setup(opts)
-    local mr = require 'mason-registry'
-    mr:on('package:install:success', function()
+    require("mason").setup(opts)
+    local mr = require("mason-registry")
+    mr:on("package:install:success", function()
       vim.defer_fn(function()
         -- trigger FileType event to possibly load this newly installed LSP server
-        require('lazy.core.handler.event').trigger {
-          event = 'FileType',
+        require("lazy.core.handler.event").trigger({
+          event = "FileType",
           buf = vim.api.nvim_get_current_buf(),
-        }
+        })
       end, 100)
     end)
     local function ensure_installed()
