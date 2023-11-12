@@ -1,0 +1,65 @@
+return {
+  'williamboman/mason.nvim',
+  cmd = 'Mason',
+  keys = { { '<leader>cm', '<cmd>Mason<cr>', desc = 'Mason' } },
+  build = ':MasonUpdate',
+  opts = {
+    ensure_installed = {
+      'shfmt',
+      -- lua stuff
+      'lua-language-server',
+      'stylua',
+
+      -- web dev stuff
+      'css-lsp',
+      'html-lsp',
+      'emmet-language-server',
+      -- "emmet-ls",
+      'typescript-language-server',
+      'prettierd',
+      'shfmt',
+      'tailwindcss-language-server',
+      'eslint_d',
+      'prisma-language-server',
+      'json-lsp',
+      'js-debug-adapter',
+      'vue-language-server',
+
+      -- sql
+      'sqlls',
+      'sql-formatter',
+
+      -- go
+      'gopls',
+      'goimports-reviser',
+      'golangci-lint',
+      'golines',
+    },
+  },
+  config = function(_, opts)
+    require('mason').setup(opts)
+    local mr = require 'mason-registry'
+    mr:on('package:install:success', function()
+      vim.defer_fn(function()
+        -- trigger FileType event to possibly load this newly installed LSP server
+        require('lazy.core.handler.event').trigger {
+          event = 'FileType',
+          buf = vim.api.nvim_get_current_buf(),
+        }
+      end, 100)
+    end)
+    local function ensure_installed()
+      for _, tool in ipairs(opts.ensure_installed) do
+        local p = mr.get_package(tool)
+        if not p:is_installed() then
+          p:install()
+        end
+      end
+    end
+    if mr.refresh then
+      mr.refresh(ensure_installed)
+    else
+      ensure_installed()
+    end
+  end,
+}
