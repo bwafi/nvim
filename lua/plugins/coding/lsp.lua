@@ -4,11 +4,10 @@ return {
   dependencies = {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
-    { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
     "folke/neodev.nvim",
+    "b0o/schemastore.nvim",
   },
   opts = {
-    -- options for vim.diagnostic.config()
     diagnostics = {
       underline = true,
       update_in_insert = false,
@@ -16,9 +15,6 @@ return {
         spacing = 4,
         source = "if_many",
         prefix = "●",
-        -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-        -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-        -- prefix = "icons",
       },
       severity_sort = true,
     },
@@ -40,7 +36,7 @@ return {
       nmap("gr", require("telescope.builtin").lsp_references, "Goto References")
       nmap("gI", require("telescope.builtin").lsp_implementations, "Goto Implementation")
       nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type Definition")
-      nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
+      nmap("<leader>ss", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
       nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
 
       -- See `:help K` for why this keymap
@@ -69,6 +65,7 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
     end
 
+    require("mason").setup()
     require("mason-lspconfig").setup()
 
     local servers = {

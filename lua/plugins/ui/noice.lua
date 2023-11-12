@@ -1,32 +1,40 @@
 return {
-  'folke/noice.nvim',
-  event = 'VeryLazy',
+  "folke/noice.nvim",
+  event = "VeryLazy",
   dependencies = {
-    'MunifTanjim/nui.nvim',
-    'rcarriga/nvim-notify',
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
   },
   opts = {
     cmdline = {
-      view = 'cmdline',
+      view = "cmdline",
     },
     lsp = {
       override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-        ['vim.lsp.util.stylize_markdown'] = true,
-        ['cmp.entry.get_documentation'] = true,
+        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+        ["vim.lsp.util.stylize_markdown"] = true,
+        ["cmp.entry.get_documentation"] = true,
+      },
+      hover = {
+        enabled = true,
+        silent = true,
+      },
+      signature = {
+        enabled = true,
+        silent = true,
       },
     },
     routes = {
       {
         filter = {
-          event = 'msg_show',
+          event = "msg_show",
           any = {
-            { find = '%d+L, %d+B' },
-            { find = '; after #%d+' },
-            { find = '; before #%d+' },
+            { find = "%d+L, %d+B" },
+            { find = "; after #%d+" },
+            { find = "; before #%d+" },
           },
         },
-        view = 'mini',
+        view = "mini",
       },
     },
     presets = {

@@ -17,7 +17,7 @@ return {
         -- theme = "onedark",
         -- component_separators = { left = "", right = "" },
         -- section_separators = { left = '', right = ''},
-        disabled_filetypes = {},
+        disabled_filetypes = { "dashboard" },
         always_divide_middle = true,
         globalstatus = true,
       },
