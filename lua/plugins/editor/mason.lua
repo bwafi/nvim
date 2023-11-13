@@ -19,7 +19,7 @@ return {
       "shfmt",
       "tailwindcss-language-server",
       "jq",
-      "eslint_d",
+      "eslint-lsp",
       "prisma-language-server",
       "json-lsp",
       "js-debug-adapter",

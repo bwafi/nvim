@@ -37,6 +37,7 @@ return {
     vim.keymap.set("n", "<leader>gf", require("telescope.builtin").git_files, { desc = "Search Git Files" })
     vim.keymap.set("n", "<leader>sb", require("telescope.builtin").buffers, { desc = "Find existing buffers" })
     vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc = "Search Help" })
+    vim.keymap.set("n", "<leader>sH", require("telescope.builtin").highlights, { desc = "Search Help" })
     vim.keymap.set("n", "<leader>sk", require("telescope.builtin").keymaps, { desc = "Search Keymaps" })
     vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "Search current Word" })
     vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "Search by Grep" })

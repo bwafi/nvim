@@ -60,9 +60,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
-
+-- MiniCursorwordxxx cterm=underline gui=underline
 -- highlight
 vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#5c6370" })
 vim.api.nvim_set_hl(0, "CursorLineFold", { fg = "#abb2bf" })
 vim.api.nvim_set_hl(0, "UfoFoldedBg", { bg = "#1f2336" })
 vim.api.nvim_set_hl(0, "Folded", { link = "CursorLine" })
+vim.api.nvim_set_hl(0, "MiniCursorword", { link = "DiffText" })
+vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { link = "DiffText" })
