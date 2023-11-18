@@ -19,7 +19,8 @@ return {
       "shfmt",
       "tailwindcss-language-server",
       "jq",
-      "eslint-lsp",
+      -- "eslint-lsp",
+      "eslint_d",
       "prisma-language-server",
       "json-lsp",
       "js-debug-adapter",
@@ -31,7 +32,8 @@ return {
 
       -- go
       "gopls",
-      "goimports-reviser",
+      -- "goimports-reviser",
+      "goimports",
       "golangci-lint",
       "golines",
     },

@@ -3,6 +3,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    "windwp/nvim-ts-autotag",
   },
   build = ":TSUpdate",
   init = function(plugin)
@@ -51,6 +52,10 @@ return {
           scope_incremental = "<c-s>",
           node_decremental = "<M-space>",
         },
+      },
+      autotag = {
+        enable = true,
+        enable_close_on_slash = true,
       },
       rainbow = {
         enable = true,

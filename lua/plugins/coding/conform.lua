@@ -24,6 +24,7 @@ return {
         ["html"] = { "prettierd" },
         ["lua"] = { "stylua" },
         ["json"] = { "jq" },
+        ["go"] = { "goimports" },
       },
       formatters = {
         shfmt = {
