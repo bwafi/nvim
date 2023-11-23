@@ -9,14 +9,17 @@ return {
       diagnostics = "nvim_lsp",
       always_show_bufferline = false,
       sort_by = "insert_at_end",
-      diagnostics_indicator = function(count, level, diagnostics_dict, context)
-        local s = ""
-        for e, n in pairs(diagnostics_dict) do
-          local sym = e == "error" and " " or (e == "warning" and " " or " ")
-          s = s .. sym .. n .. " "
-        end
-        return s
-      end,
+      -- diagnostics_indicator = function(_, _, diag)
+      --   local icons = {
+      --     Error = " ",
+      --     Warn = " ",
+      --     Hint = " ",
+      --     Info = " ",
+      --   }
+      --   local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+      --     .. (diag.warning and icons.Warn .. diag.warning or "")
+      --   return vim.trim(ret)
+      -- end,
       offsets = {
         {
           filetype = "NvimTree",

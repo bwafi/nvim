@@ -26,6 +26,9 @@ return {
       "js-debug-adapter",
       "vue-language-server",
 
+      -- PHP
+      "intelephense",
+
       -- sql
       "sqlls",
       "sql-formatter",
@@ -34,8 +37,9 @@ return {
       "gopls",
       -- "goimports-reviser",
       "goimports",
+      "gofumpt",
       "golangci-lint",
-      "golines",
+      -- "golines",
     },
   },
   config = function(_, opts)

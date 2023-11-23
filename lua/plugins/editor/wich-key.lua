@@ -5,7 +5,7 @@ return {
     config = function()
       require("which-key").register({
         ["<leader>c"] = { name = "Code", _ = "which_key_ignore" },
-        ["<leader>d"] = { name = "D", _ = "which_key_ignore" },
+        ["<leader>d"] = { name = "Debug", _ = "which_key_ignore" },
         ["<leader>g"] = { name = "Git", _ = "which_key_ignore" },
         ["<leader>h"] = { name = "More git", _ = "which_key_ignore" },
         ["<leader>r"] = { name = "Rename", _ = "which_key_ignore" },

@@ -1,25 +1,38 @@
+local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
   return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
 end
 
 -- Highlight on yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   callback = function()
     vim.highlight.on_yank()
   end,
 })
 
--- disabled semantic Token LSP
-vim.api.nvim_create_autocmd("LspAttach", {
-  callback = function(args)
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
-    client.server_capabilities.semanticTokensProvider = nil
+-- Fix conceallevel for json & help files
+autocmd({ "FileType" }, {
+  pattern = { "json", "jsonc" },
+  callback = function()
+    vim.wo.spell = false
+    vim.wo.conceallevel = 0
+  end,
+})
+
+-- disable fold in buffer/filetypes
+autocmd("FileType", {
+  pattern = { "dashboard" },
+  callback = function()
+    require("ufo").detach()
+    vim.opt_local.foldenable = false
+    vim.opt_local.foldcolumn = "0" -- '0' is not bad
+    vim.opt_local.signcolumn = "no"
   end,
 })
 
 -- close some filetypes with <q>
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   group = augroup("close_with_q"),
   pattern = {
     "PlenaryTestPopup",
@@ -44,7 +57,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- go to last loc when opening a buffer
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
   group = augroup("last_loc"),
   callback = function(event)
     local exclude = { "gitcommit" }

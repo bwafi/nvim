@@ -43,7 +43,17 @@ return {
               end
             end,
           },
-          "filetype",
+          {
+            "filename",
+            file_status = true,
+            path = 1,
+            symbols = {
+              modified = "[+]", -- Text to show when the file is modified.
+              readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
+              unnamed = "[No Name]", -- Text to show for unnamed buffers.
+              newfile = "[New]", -- Text to show for newly created file before first write
+            },
+          },
         },
         lualine_x = {
           {
@@ -70,17 +80,12 @@ return {
             end,
             color = { fg = "#ff9e64" },
           },
-
           {
             "diagnostics",
-            symbols = {
-              error = " ",
-              warn = " ",
-              info = " ",
-              hint = " ",
-            },
+            symbols = { error = " ", warn = " ", info = " " },
           },
           "fileformat",
+          "filetype",
         },
         lualine_y = {
           { "progress", separator = " ", padding = { left = 1, right = 0 } },

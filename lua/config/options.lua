@@ -45,6 +45,8 @@ opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 opt.laststatus = 0
 opt.linebreak = true
+opt.breakindent = true
+-- opt.breakat = " " -- "^I!@*-+;:,./?"  Default value
 
 -- UFO folding https://github.com/kevinhwang91/nvim-ufo#minimal-configuration
 vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
