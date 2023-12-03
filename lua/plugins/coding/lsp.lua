@@ -1,5 +1,10 @@
 return {
   {
+    "nvim-lua/plenary.nvim",
+    lazy = true,
+  },
+
+  {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     dependencies = {
@@ -21,9 +26,9 @@ return {
       },
     },
     config = function()
-      local on_attach = function(client, bufnr)
+      local on_attach = function(_, bufnr)
         -- disable semantic token
-        client.server_capabilities.semanticTokensProvider = nil
+        -- client.server_capabilities.semanticTokensProvider = nil
 
         local nmap = function(keys, func, desc)
           if desc then

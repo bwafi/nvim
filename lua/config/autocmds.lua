@@ -1,6 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local function augroup(name)
-  return vim.api.nvim_create_augroup("lazyvim_" .. name, { clear = true })
+  return vim.api.nvim_create_augroup(name, { clear = true })
 end
 
 -- Highlight on yank
@@ -8,15 +8,6 @@ autocmd("TextYankPost", {
   group = augroup("highlight_yank"),
   callback = function()
     vim.highlight.on_yank()
-  end,
-})
-
--- Fix conceallevel for json & help files
-autocmd({ "FileType" }, {
-  pattern = { "json", "jsonc" },
-  callback = function()
-    vim.wo.spell = false
-    vim.wo.conceallevel = 0
   end,
 })
 
@@ -73,11 +64,3 @@ autocmd("BufReadPost", {
     end
   end,
 })
-
--- highlight
-vim.api.nvim_set_hl(0, "FoldColumn", { fg = "#5c6370" })
-vim.api.nvim_set_hl(0, "CursorLineFold", { fg = "#abb2bf" })
-vim.api.nvim_set_hl(0, "UfoFoldedBg", { bg = "#1f2336" })
-vim.api.nvim_set_hl(0, "Folded", { link = "CursorLine" })
-vim.api.nvim_set_hl(0, "MiniCursorword", { link = "DiffText" })
-vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", { link = "DiffText" })

@@ -1,16 +1,18 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "rafamadriz/friendly-snippets",
       "hrsh7th/cmp-buffer", -- source for text in buffer
       "hrsh7th/cmp-path", -- source for file system paths
       "L3MON4D3/LuaSnip", -- snippet engine
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
       "rafamadriz/friendly-snippets", -- useful snippets
       "onsails/lspkind.nvim", -- vs-code like pictograms
+      {
+        "hrsh7th/cmp-cmdline",
+      },
     },
     config = function()
       local cmp = require("cmp")
@@ -26,13 +28,17 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
+        experimental = {
+          ghost_text = true,
+          hl_group = "CmpGhostText",
+        },
         mapping = {
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.close(),
+          ["<C-e>"] = cmp.mapping.complete(),
+          ["<C-c>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
@@ -77,14 +83,49 @@ return {
           }),
         },
       })
+
+      -- `:` cmdline setup.
+      cmp.setup.cmdline(":", {
+        completion = {
+          completeopt = "menu,preview,menuone,noselect",
+        },
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          {
+            name = "cmdline",
+          },
+        }),
+      })
+
+      -- '?' cmpline setup
+      cmp.setup.cmdline("?", {
+        completion = {
+          completeopt = "menu,preview,menuone,noselect",
+        },
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
+
+      -- '/' cmpline setup
+      cmp.setup.cmdline("/", {
+        completion = {
+          completeopt = "menu,preview,menuone,noselect",
+        },
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
     end,
   },
 
   {
     "L3MON4D3/LuaSnip",
-    build = (not jit.os:find("Windows"))
-        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-      or nil,
+    build = (not jit.os:find("Windows")) and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp" or nil,
     dependencies = {
       "rafamadriz/friendly-snippets",
       config = function()

@@ -9,6 +9,7 @@ return {
       diagnostics = "nvim_lsp",
       always_show_bufferline = false,
       sort_by = "insert_at_end",
+      numbers = "none",
       -- diagnostics_indicator = function(_, _, diag)
       --   local icons = {
       --     Error = " ",

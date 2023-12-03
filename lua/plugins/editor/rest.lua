@@ -1,6 +1,7 @@
 return {
   "rest-nvim/rest.nvim",
   ft = "http",
+  event = "VeryLazy",
   commit = "8b62563",
   dependencies = { "nvim-lua/plenary.nvim" },
   opts = {

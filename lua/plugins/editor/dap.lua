@@ -6,9 +6,6 @@ return {
     dependencies = {
       {
         "mfussenegger/nvim-dap",
-        config = function()
-          require("custom.configs.dapui")
-        end,
       },
       {
         "theHamsta/nvim-dap-virtual-text",
@@ -78,10 +75,7 @@ return {
 
       for name, sign in pairs(icons.dap) do
         sign = type(sign) == "table" and sign or { sign }
-        vim.fn.sign_define(
-          "Dap" .. name,
-          { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] }
-        )
+        vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = sign[3], numhl = sign[3] })
       end
     end,
 
@@ -112,7 +106,7 @@ return {
     ft = "go",
     dependencies = "mfussenegger/nvim-dap",
     config = function(_, opts)
-      -- require("dap-go").setup(opts)
+      require("dap-go").setup(opts)
     end,
   },
 }

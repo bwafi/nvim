@@ -1,17 +1,17 @@
 return {
-  'nvim-tree/nvim-tree.lua',
-  version = '*',
-  event = 'VeryLazy',
+  "nvim-tree/nvim-tree.lua",
+  version = "*",
+  event = "VeryLazy",
   dependencies = {
-    'nvim-tree/nvim-web-devicons',
+    "nvim-tree/nvim-web-devicons",
   },
   config = function()
-    local nvimtree = require 'nvim-tree'
+    local nvimtree = require("nvim-tree")
 
-    nvimtree.setup {
+    nvimtree.setup({
       filters = {
         dotfiles = false,
-        exclude = { vim.fn.stdpath 'config' .. '/lua/custom' },
+        exclude = { vim.fn.stdpath("config") .. "/lua/custom" },
       },
       disable_netrw = true,
       hijack_netrw = true,
@@ -32,16 +32,16 @@ return {
           max = vim.diagnostic.severity.ERROR,
         },
         icons = {
-          hint = '',
-          info = '',
-          warning = '',
-          error = '',
+          hint = "",
+          info = "",
+          warning = "",
+          error = "",
         },
       },
       view = {
-        signcolumn = 'no',
+        signcolumn = "no",
         adaptive_size = false,
-        side = 'left',
+        side = "left",
         width = 30,
         preserve_window_proportions = true,
       },
@@ -55,20 +55,21 @@ return {
       actions = {
         open_file = {
           resize_window = true,
+          quit_on_open = true, -- auto close nvimtree opening file
         },
       },
       renderer = {
         root_folder_label = false,
         highlight_git = true,
-        highlight_opened_files = 'none',
+        highlight_opened_files = "none",
 
         indent_markers = {
           enable = false,
         },
 
         icons = {
-          diagnostics_placement = 'before',
-          git_placement = 'after',
+          diagnostics_placement = "before",
+          git_placement = "after",
           show = {
             file = true,
             folder = true,
@@ -77,30 +78,30 @@ return {
           },
 
           glyphs = {
-            default = '󰈚',
-            symlink = '',
+            default = "󰈚",
+            symlink = "",
             folder = {
-              default = '',
-              empty = '',
-              empty_open = '',
-              open = '',
-              symlink = '',
-              symlink_open = '',
-              arrow_open = '',
-              arrow_closed = '',
+              default = "",
+              empty = "",
+              empty_open = "",
+              open = "",
+              symlink = "",
+              symlink_open = "",
+              arrow_open = "",
+              arrow_closed = "",
             },
             git = {
-              unstaged = '✗',
-              staged = '✓',
-              unmerged = '',
-              renamed = '➜',
-              untracked = '★',
-              deleted = '',
-              ignored = '◌',
+              unstaged = "✗",
+              staged = "✓",
+              unmerged = "",
+              renamed = "➜",
+              untracked = "★",
+              deleted = "",
+              ignored = "◌",
             },
           },
         },
       },
-    }
+    })
   end,
 }

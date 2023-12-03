@@ -3,6 +3,6 @@ return {
   event = "VeryLazy",
   cmd = "UndotreeToggle",
   keys = {
-    { "<leader>fu", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" },
+    { "<leader>ut", "<cmd>UndotreeToggle<cr>", desc = "Undo tree" },
   },
 }

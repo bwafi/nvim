@@ -32,13 +32,12 @@ return {
         "javascript",
         "tsx",
         "vue",
-        "http",
         "go",
-        "prisma",
-        "php",
         "markdown",
         "markdown_inline",
         "regex",
+        "http",
+        "prisma",
       },
 
       auto_install = true,
@@ -46,7 +45,7 @@ return {
       highlight = { enable = true },
       indent = { enable = true },
       incremental_selection = {
-        enable = false,
+        enable = true,
         keymaps = {
           init_selection = "gnn",
           node_incremental = "grn",
