@@ -26,9 +26,9 @@ return {
       },
     },
     config = function()
-      local on_attach = function(_, bufnr)
+      local on_attach = function(client, bufnr)
         -- disable semantic token
-        -- client.server_capabilities.semanticTokensProvider = nil
+        client.server_capabilities.semanticTokensProvider = nil
 
         local nmap = function(keys, func, desc)
           if desc then
@@ -48,7 +48,7 @@ return {
         nmap("<leader>ss", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
         nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
 
-        -- See `:help K` for why this keymap
+        -- See `:help K` for why this keymaplsp
         nmap("K", vim.lsp.buf.hover, "Hover Documentation")
         nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 

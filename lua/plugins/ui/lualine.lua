@@ -1,4 +1,5 @@
--- local Util = require("utils.lualine")
+local Util = require("utils.lualine")
+
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
@@ -11,14 +12,53 @@ return {
     end
   end,
   config = function()
-    -- local wpm = require("wpm")
+    local colors = require("tokyonight.colors").setup({ transform = true })
+    -- local config = require("tokyonight.config").options
+    local tokyonight = {}
+
+    tokyonight.normal = {
+      a = { bg = colors.blue, fg = colors.black },
+      b = { bg = colors.fg_gutter, fg = colors.blue },
+      c = { bg = colors.bg_statusline, fg = colors.fg_sidebar },
+    }
+
+    tokyonight.insert = {
+      a = { bg = colors.green1, fg = colors.black },
+      b = { bg = colors.fg_gutter, fg = colors.green1 },
+    }
+
+    tokyonight.command = {
+      a = { bg = colors.yellow, fg = colors.black },
+      b = { bg = colors.fg_gutter, fg = colors.yellow },
+    }
+
+    tokyonight.visual = {
+      a = { bg = colors.magenta, fg = colors.black },
+      b = { bg = colors.fg_gutter, fg = colors.magenta },
+    }
+
+    tokyonight.replace = {
+      a = { bg = colors.red, fg = colors.black },
+      b = { bg = colors.fg_gutter, fg = colors.red },
+    }
+
+    tokyonight.terminal = {
+      a = { bg = colors.green, fg = colors.black },
+      b = { bg = colors.fg_gutter, fg = colors.green },
+    }
+
+    tokyonight.inactive = {
+      a = { bg = colors.bg_statusline, fg = colors.blue },
+      b = { bg = colors.bg_statusline, fg = colors.fg_gutter, gui = "bold" },
+      c = { bg = colors.bg_statusline, fg = colors.fg_gutter },
+    }
     require("lualine").setup({
       options = {
-        -- theme = "NeoSolarized",
-        icons_enabled = true,
+        theme = tokyonight,
         -- theme = "onedark",
         -- component_separators = { left = "", right = "" },
-        -- section_separators = { left = '', right = ''},
+        icons_enabled = true,
+        section_separators = { left = "", right = "" },
         disabled_filetypes = { "dashboard" },
         always_divide_middle = true,
         globalstatus = true,
@@ -45,20 +85,9 @@ return {
               end
             end,
           },
-          -- {
-          --   Util.pretty_path({ path = 1 }),
-          -- },
-          -- {
-          --   "filename",
-          --   file_status = true,
-          --   path = 1,
-          --   symbols = {
-          --     modified = "[+]", -- Text to show when the file is modified.
-          --     readonly = "[-]", -- Text to show when the file is non-modifiable or readonly.
-          --     unnamed = "[No Name]", -- Text to show for unnamed buffers.
-          --     newfile = "[New]", -- Text to show for newly created file before first write
-          --   },
-          -- },
+
+          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+          Util.pretty_path(),
         },
         lualine_x = {
           {
@@ -89,7 +118,6 @@ return {
             "diagnostics",
             symbols = { error = " ", warn = " ", info = " " },
           },
-          "filetype",
           "fileformat",
         },
         lualine_y = {

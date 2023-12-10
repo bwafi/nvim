@@ -1,3 +1,5 @@
+local Util = require("utils.terminal")
+
 local map = vim.keymap.set
 
 map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
@@ -97,9 +99,12 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 map("n", "<leader>uw", "<cmd>setlocal wrap!<cr>", { desc = "Toggle Wrap", noremap = true, silent = true })
 
 -- Terminal Mappings
-map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Terminal Float" })
-map("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { desc = "Terminal Horizontal" })
-map("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical size=40<cr>", { desc = "Terminal Vertical" })
+map("n", "<leader>tf", function()
+  Util.open()
+end, { desc = "Terminal (cwd)" })
+map("n", "<C-_>", function()
+  Util.open()
+end, { desc = "Terminal (cwd)" })
 map("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 map("t", "<C-x>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
 map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })

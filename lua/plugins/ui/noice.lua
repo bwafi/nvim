@@ -3,7 +3,18 @@ return {
   event = "VeryLazy",
   dependencies = {
     "MunifTanjim/nui.nvim",
-    "rcarriga/nvim-notify",
+    {
+      "rcarriga/nvim-notify",
+      opts = {
+        -- render = "wrapped-compact",
+        -- top_down = false,
+        max_width = 55,
+        minimum_width = 20,
+        level = vim.log.levels.TRACE, -- minimum severity level
+        timeout = 3000,
+        stages = "slide", -- slide|fade
+      },
+    },
   },
   opts = {
     cmdline = {

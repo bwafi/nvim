@@ -15,17 +15,17 @@ return {
 
     overseer.setup({
       templates = { "builtin" },
-      strategy = "toggleterm",
+      strategy = "jobstart",
       dap = false,
       component_aliases = {
         default = {
           { "display_duration", detail_level = 2 },
           "on_output_summarize",
           "on_exit_set_status",
-          { "on_complete_notify", statuses = { "FAILURE" } }, --disable notify on complete
-          -- "on_complete_notify",
           "on_complete_dispose",
+          { "on_output_quickfix", open = true },
         },
+
         -- Tasks from tasks.json use these components
         default_vscode = {
           "default",

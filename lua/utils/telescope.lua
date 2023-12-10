@@ -43,14 +43,4 @@ function M.on_very_lazy(fn)
   })
 end
 
--- my_toggleterm.lua
-
-function M.update_winbar()
-  -- Set warna winbar sesuai dengan preferensi Anda
-  vim.cmd("highlight ToggleTermWinBar guifg=" .. winbar_fg .. " guibg=" .. winbar_bg .. " gui=italic")
-
-  -- Terapkan winhighlight
-  vim.cmd("setlocal winhighlight=Normal:ToggleTermWinBar")
-end
-
 return M
