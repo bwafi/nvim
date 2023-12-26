@@ -24,7 +24,7 @@ return {
         winblend = 6,
         multi_icon = " ",
         selection_caret = "➤ ",
-        prompt_prefix = " ",
+        prompt_prefix = "  ",
       },
     })
 
