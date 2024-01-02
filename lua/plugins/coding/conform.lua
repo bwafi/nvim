@@ -43,7 +43,7 @@ return {
         ["html"] = { "prettierd" },
         ["lua"] = { "stylua" },
         ["json"] = { "jq" },
-        ["go"] = { "goimports", "gofumpt" },
+        ["go"] = { "goimports", "gofumpt", "golines" },
       },
       formatters = {
         shfmt = {

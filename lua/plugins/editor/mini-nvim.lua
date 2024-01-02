@@ -18,7 +18,7 @@ return {
           func = nil,
         },
         replace = {
-          prefix = "gr",
+          prefix = "gp",
           reindent_linewise = true,
         },
         sort = {
@@ -93,7 +93,6 @@ return {
     },
   },
 
-  -- indentscope
   {
     "echasnovski/mini.indentscope",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },

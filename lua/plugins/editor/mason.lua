@@ -35,10 +35,10 @@ return {
 
       -- go
       "gopls",
-      -- "goimports-reviser",
-      "goimports",
-      "gofumpt",
-      "golangci-lint",
+      "delve",
+      -- "goimports",
+      -- "gofumpt",
+      -- "golangci-lint",
       -- "golines",
     },
   },
