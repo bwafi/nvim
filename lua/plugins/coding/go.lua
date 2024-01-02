@@ -31,7 +31,7 @@ return {
       lsp_keymaps = true, -- set to false to disable gopls/lsp keymap
       lsp_document_formatting = false,
       lsp_inlay_hints = {
-        enable = true,
+        enable = false,
         -- hint style, set to 'eol' for end-of-line hints, 'inlay' for inline hints
         -- inlay only avalible for 0.10.x
         style = "inlay",
