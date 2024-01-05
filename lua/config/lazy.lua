@@ -23,22 +23,38 @@ require("lazy").setup({
 }, {
   defaults = {
     lazy = true,
-    version = false,
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = { enabled = false, notify = false }, -- automatically check for plugin updates
+  ui = {
+    border = "rounded",
+  },
+  dev = {
+    path = "~/projects",
+  },
   performance = {
     rtp = {
-      -- disable some rtp plugins
       disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
+        "netrw",
         "netrwPlugin",
-        "tarPlugin",
+        "netrwSettings",
+        "netrwFileHandlers",
+        "gzip",
+        "zip",
         "tohtml",
-        "tutor",
+        "man",
         "zipPlugin",
+        "tar",
+        "tarPlugin",
+        "getscript",
+        "getscriptPlugin",
+        "vimball",
+        "vimballPlugin",
+        "2html_plugin",
+        "logipat",
+        "rrhelper",
+        "spellfile_plugin",
+        "matchit",
       },
     },
   },

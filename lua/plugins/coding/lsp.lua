@@ -85,10 +85,9 @@ return {
       require("neodev").setup()
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities.textDocument.foldingRange = {
-      --   dynamicRegistration = false,
-      --   lineFoldingOnly = true,
-      -- }
+
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
       local mason_lspconfig = require("mason-lspconfig")
@@ -152,31 +151,17 @@ return {
             capabilities = capabilities,
             on_attach = on_attach,
             settings = {
-              -- https://go.googlesource.com/vscode-go/+/HEAD/docs/settings.md#settings-for
               gopls = {
-                -- more settings: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
-                -- not supported
-                analyses = {
-                  unreachable = true,
-                  nilness = true,
-                  unusedparams = true,
-                  useany = true,
-                  unusedwrite = true,
-                  ST1003 = true,
-                  undeclaredname = true,
-                  fillreturns = true,
-                  nonewvars = true,
-                  fieldalignment = false,
-                  shadow = true,
-                },
+                gofumpt = true,
                 codelenses = {
-                  generate = true, -- show the `go generate` lens.
-                  gc_details = true, -- Show a code lens toggling the display of gc's choices.
+                  gc_details = false,
+                  generate = true,
+                  regenerate_cgo = true,
+                  run_govulncheck = true,
                   test = true,
                   tidy = true,
-                  vendor = true,
-                  regenerate_cgo = true,
                   upgrade_dependency = true,
+                  vendor = true,
                 },
                 hints = {
                   assignVariableTypes = true,
@@ -187,12 +172,18 @@ return {
                   parameterNames = true,
                   rangeVariableTypes = true,
                 },
+                analyses = {
+                  fieldalignment = true,
+                  nilness = true,
+                  unusedparams = true,
+                  unusedwrite = true,
+                  useany = true,
+                },
                 usePlaceholders = true,
                 completeUnimported = true,
                 staticcheck = true,
-                matcher = "Fuzzy",
-                diagnosticsDelay = "500ms",
-                symbolMatcher = "fuzzy",
+                directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
+                semanticTokens = false,
               },
             },
           })

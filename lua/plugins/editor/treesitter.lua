@@ -4,6 +4,7 @@ return {
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "windwp/nvim-ts-autotag",
+    "nvim-lua/plenary.nvim",
   },
   build = ":TSUpdate",
   init = function(plugin)

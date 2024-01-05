@@ -28,7 +28,7 @@ function M.format(component, text, hl_group)
     lualine_hl_group = component:create_hl({ fg = utils.extract_highlight_colors(hl_group, "fg") }, "LV_" .. hl_group)
     component.hl_cache[hl_group] = lualine_hl_group
   end
-  return component:format_hl(lualine_hl_group) .. text .. "  " .. component:get_default_hl()
+  return component:format_hl(lualine_hl_group) .. text .. " " .. component:get_default_hl()
 end
 
 ---@param opts? {relative: "cwd"|"root", modified_hl: string?}

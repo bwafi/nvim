@@ -36,10 +36,10 @@ return {
       -- go
       "gopls",
       "delve",
-      -- "goimports",
-      -- "gofumpt",
+      "goimports",
+      "gofumpt",
       -- "golangci-lint",
-      -- "golines",
+      "golines",
     },
   },
   config = function(_, opts)

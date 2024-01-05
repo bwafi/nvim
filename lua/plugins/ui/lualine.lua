@@ -12,123 +12,62 @@ return {
     end
   end,
   config = function()
-    local colors = require("tokyonight.colors").setup({ transform = true })
-    -- local config = require("tokyonight.config").options
-    local tokyonight = {}
+    local tokyonight = require("tokyonight.colors").setup({ transform = true })
 
-    tokyonight.normal = {
-      a = { bg = colors.blue, fg = colors.black },
-      b = { bg = colors.fg_gutter, fg = colors.blue },
-      c = { bg = colors.bg_statusline, fg = colors.fg_sidebar },
+    local lualine = require("lualine")
+
+    -- Color table for highlights
+    local colors = {
+      bg = tokyonight.bg_statusline,
+      fg = tokyonight.fg_sidebar,
+      yellow = tokyonight.yellow,
+      cyan = tokyonight.cyan,
+      darkblue = tokyonight.blue7,
+      green = tokyonight.green,
+      orange = tokyonight.orange,
+      violet = tokyonight.purple,
+      magenta = tokyonight.magenta,
+      blue = tokyonight.blue,
+      red = tokyonight.red,
     }
 
-    tokyonight.insert = {
-      a = { bg = colors.green1, fg = colors.black },
-      b = { bg = colors.fg_gutter, fg = colors.green1 },
+    local conditions = {
+      buffer_not_empty = function()
+        return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
+      end,
+      hide_in_width = function()
+        return vim.fn.winwidth(0) > 120
+      end,
+      check_git_workspace = function()
+        local filepath = vim.fn.expand("%:p:h")
+        local gitdir = vim.fn.finddir(".git", filepath .. ";")
+        return gitdir and #gitdir > 0 and #gitdir < #filepath
+      end,
     }
 
-    tokyonight.command = {
-      a = { bg = colors.yellow, fg = colors.black },
-      b = { bg = colors.fg_gutter, fg = colors.yellow },
-    }
-
-    tokyonight.visual = {
-      a = { bg = colors.magenta, fg = colors.black },
-      b = { bg = colors.fg_gutter, fg = colors.magenta },
-    }
-
-    tokyonight.replace = {
-      a = { bg = colors.red, fg = colors.black },
-      b = { bg = colors.fg_gutter, fg = colors.red },
-    }
-
-    tokyonight.terminal = {
-      a = { bg = colors.green, fg = colors.black },
-      b = { bg = colors.fg_gutter, fg = colors.green },
-    }
-
-    tokyonight.inactive = {
-      a = { bg = colors.bg_statusline, fg = colors.blue },
-      b = { bg = colors.bg_statusline, fg = colors.fg_gutter, gui = "bold" },
-      c = { bg = colors.bg_statusline, fg = colors.fg_gutter },
-    }
-    require("lualine").setup({
+    -- Config
+    local config = {
       options = {
-        theme = tokyonight,
-        -- theme = "onedark",
-        -- component_separators = { left = "", right = "" },
-        icons_enabled = true,
-        section_separators = { left = "", right = "" },
+        component_separators = "",
+        section_separators = "",
+        theme = {
+          normal = { c = { fg = colors.fg, bg = colors.bg } },
+          inactive = { c = { fg = colors.fg, bg = colors.bg } },
+        },
         disabled_filetypes = { "dashboard" },
         always_divide_middle = true,
         globalstatus = true,
       },
+      extensions = { "nvim-tree" },
       sections = {
-        lualine_a = { "mode", "tab" },
-        lualine_b = { "branch" },
-        lualine_c = {
-          {
-            "diff",
-            symbols = {
-              added = " ",
-              modified = " ",
-              removed = " ",
-            },
-            source = function()
-              local gitsigns = vim.b.gitsigns_status_dict
-              if gitsigns then
-                return {
-                  added = gitsigns.added,
-                  modified = gitsigns.changed,
-                  removed = gitsigns.removed,
-                }
-              end
-            end,
-          },
-
-          { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-          Util.pretty_path(),
-        },
-        lualine_x = {
-          {
-            require("noice").api.status.command.get,
-            cond = require("noice").api.status.command.has,
-            color = { fg = "#ff9e64" },
-          },
-          {
-            require("noice").api.status.mode.get,
-            cond = require("noice").api.status.mode.has,
-            color = { fg = "#ff9e64" },
-          },
-          {
-            require("noice").api.status.search.get,
-            cond = require("noice").api.status.search.has,
-            color = { fg = "#ff9e64" },
-          },
-          {
-            function()
-              return "  " .. require("dap").status()
-            end,
-            cond = function()
-              return package.loaded["dap"] and require("dap").status() ~= ""
-            end,
-            color = { fg = "#ff9e64" },
-          },
-          {
-            "diagnostics",
-            symbols = { error = " ", warn = " ", info = " " },
-          },
-          "fileformat",
-        },
-        lualine_y = {
-          { "progress", separator = " ", padding = { left = 1, right = 0 } },
-          { "location", padding = { left = 0, right = 1 } },
-        },
-        lualine_z = {
-          function()
-            return " " .. os.date("%R")
-          end,
-        },
+        -- these are to remove the defaults
+        lualine_a = {},
+        lualine_b = {},
+        lualine_y = {},
+        lualine_z = {},
+        -- These will be filled later
+        lualine_c = {},
+        lualine_x = {},
       },
       inactive_sections = {
         lualine_a = {},
@@ -138,8 +77,232 @@ return {
         lualine_y = {},
         lualine_z = {},
       },
-      tabline = {},
-      extensions = { "nvim-tree" },
+    }
+
+    -- Inserts a component in lualine_c at left section
+    local function ins_left(component)
+      table.insert(config.sections.lualine_c, component)
+    end
+
+    -- Inserts a component in lualine_x at right section
+    local function ins_right(component)
+      table.insert(config.sections.lualine_x, component)
+    end
+
+    ins_left({
+      function()
+        return "▊"
+      end,
+      color = function()
+        -- auto change color according to neovims mode
+        local mode_color = {
+          n = colors.red,
+          i = colors.green,
+          v = colors.blue,
+          [""] = colors.blue,
+          V = colors.blue,
+          c = colors.magenta,
+          no = colors.red,
+          s = colors.orange,
+          S = colors.orange,
+          [""] = colors.orange,
+          ic = colors.yellow,
+          R = colors.violet,
+          Rv = colors.violet,
+          cv = colors.red,
+          ce = colors.red,
+          r = colors.cyan,
+          rm = colors.cyan,
+          ["r?"] = colors.cyan,
+          ["!"] = colors.red,
+          t = colors.red,
+        }
+        return { fg = mode_color[vim.fn.mode()] }
+      end,
+      padding = { left = 0, right = 1 }, -- We don't need space before this
     })
+
+    ins_left({
+      -- mode component
+      function()
+        return ""
+      end,
+      color = function()
+        -- auto change color according to neovims mode
+        local mode_color = {
+          n = colors.red,
+          i = colors.green,
+          v = colors.blue,
+          [""] = colors.blue,
+          V = colors.blue,
+          c = colors.magenta,
+          no = colors.red,
+          s = colors.orange,
+          S = colors.orange,
+          [""] = colors.orange,
+          ic = colors.yellow,
+          R = colors.violet,
+          Rv = colors.violet,
+          cv = colors.red,
+          ce = colors.red,
+          r = colors.cyan,
+          rm = colors.cyan,
+          ["r?"] = colors.cyan,
+          ["!"] = colors.red,
+          t = colors.red,
+        }
+        return { fg = mode_color[vim.fn.mode()] }
+      end,
+      padding = { right = 1 },
+    })
+
+    ins_left({
+      -- filesize component
+      "filesize",
+      cond = conditions.buffer_not_empty,
+    })
+
+    ins_left({
+      Util.pretty_path(),
+    })
+
+    ins_left({ "location" })
+
+    ins_left({
+      "progress",
+      color = { fg = colors.fg },
+      separator = { left = "", right = "" },
+    })
+
+    ins_left({
+      "diagnostics",
+      sources = { "nvim_diagnostic" },
+      symbols = { error = " ", warn = " ", info = " " },
+      diagnostics_color = {
+        color_error = { fg = colors.red },
+        color_warn = { fg = colors.yellow },
+        color_info = { fg = colors.cyan },
+      },
+    })
+
+    ins_right({
+      function()
+        return require("noice").api.status.command.get()
+      end,
+      cond = require("noice").api.status.command.has,
+      color = { fg = colors.blue },
+      padding = { right = 0 },
+    })
+
+    ins_right({
+      "searchcount",
+    })
+
+    ins_right({
+      "fileformat",
+      icons_enabled = true, -- I think icons are cool but Eviline doesn't have them. sigh
+      symbols = {
+        unix = "",
+      },
+      color = { fg = colors.green },
+    })
+
+    ins_right({
+      -- Lsp server name .
+      function()
+        local msg = "No Active Lsp"
+        local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+        local clients = vim.lsp.get_active_clients()
+        if next(clients) == nil then
+          return msg
+        end
+        for _, client in ipairs(clients) do
+          local filetypes = client.config.filetypes
+          if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+            return client.name
+          end
+        end
+        return msg
+      end,
+      icon = "",
+      color = { fg = colors.magenta },
+    })
+
+    -- Add components to right sections
+    -- ins_right({
+    --   "o:encoding", -- option component same as &encoding in viml
+    --   fmt = string.upper, -- I'm not sure why it's upper case either ;)
+    --   cond = conditions.hide_in_width,
+    --   color = { fg = colors.green, gui = "bold" },
+    -- })
+
+    ins_right({
+      "diff",
+      -- Is it me or the symbol for modified us really weird
+      symbols = {
+        added = " ",
+        modified = " ",
+        removed = " ",
+      },
+      source = function()
+        local gitsigns = vim.b.gitsigns_status_dict
+        if gitsigns then
+          return {
+            added = gitsigns.added,
+            modified = gitsigns.changed,
+            removed = gitsigns.removed,
+          }
+        end
+      end,
+      -- diff_color = {
+      --   added = { fg = colors.green },
+      --   modified = { fg = colors.orange },
+      --   removed = { fg = colors.red },
+      -- },
+      cond = conditions.hide_in_width,
+    })
+
+    ins_right({
+      "branch",
+      icon = "",
+      color = { fg = colors.violet },
+      padding = { right = 0 },
+    })
+
+    ins_right({
+      function()
+        return "▊"
+      end,
+      color = function()
+        -- auto change color according to neovims mode
+        local mode_color = {
+          n = colors.red,
+          i = colors.green,
+          v = colors.blue,
+          [""] = colors.blue,
+          V = colors.blue,
+          c = colors.magenta,
+          no = colors.red,
+          s = colors.orange,
+          S = colors.orange,
+          [""] = colors.orange,
+          ic = colors.yellow,
+          R = colors.violet,
+          Rv = colors.violet,
+          cv = colors.red,
+          ce = colors.red,
+          r = colors.cyan,
+          rm = colors.cyan,
+          ["r?"] = colors.cyan,
+          ["!"] = colors.red,
+          t = colors.red,
+        }
+        return { fg = mode_color[vim.fn.mode()] }
+      end,
+      padding = { left = 1 },
+    })
+
+    -- Now don't forget to initialize lualine
+    lualine.setup(config)
   end,
 }
