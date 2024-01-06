@@ -18,5 +18,6 @@ return {
     manage_folds = {
       ["_"] = true,
     },
+    close_automatic_events = { "switch_buffer" },
   },
 }
