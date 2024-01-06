@@ -27,6 +27,7 @@ return {
       orange = tokyonight.orange,
       violet = tokyonight.purple,
       magenta = tokyonight.magenta,
+      magenta2 = tokyonight.magenta2,
       blue = tokyonight.blue,
       red = tokyonight.red,
     }
@@ -97,8 +98,8 @@ return {
         -- auto change color according to neovims mode
         local mode_color = {
           n = colors.red,
-          i = colors.green,
-          v = colors.blue,
+          i = colors.blue,
+          v = colors.green,
           [""] = colors.blue,
           V = colors.blue,
           c = colors.magenta,
@@ -131,8 +132,8 @@ return {
         -- auto change color according to neovims mode
         local mode_color = {
           n = colors.red,
-          i = colors.green,
-          v = colors.blue,
+          i = colors.blue,
+          v = colors.green,
           [""] = colors.blue,
           V = colors.blue,
           c = colors.magenta,
@@ -160,18 +161,19 @@ return {
       -- filesize component
       "filesize",
       cond = conditions.buffer_not_empty,
+      color = { fg = colors.magenta },
     })
 
     ins_left({
       Util.pretty_path(),
+      -- color = { fg = colors.magenta2 },
     })
 
-    ins_left({ "location" })
+    ins_left({ "location", color = { fg = colors.violet } })
 
     ins_left({
       "progress",
-      color = { fg = colors.fg },
-      separator = { left = "", right = "" },
+      color = { fg = tokyonight.green2 },
     })
 
     ins_left({
@@ -277,8 +279,8 @@ return {
         -- auto change color according to neovims mode
         local mode_color = {
           n = colors.red,
-          i = colors.green,
-          v = colors.blue,
+          i = colors.blue,
+          v = colors.green,
           [""] = colors.blue,
           V = colors.blue,
           c = colors.magenta,

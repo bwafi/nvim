@@ -9,15 +9,66 @@ return {
       "L3MON4D3/LuaSnip", -- snippet engine
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
       "rafamadriz/friendly-snippets", -- useful snippets
-      "onsails/lspkind.nvim", -- vs-code like pictograms
       {
-        "hrsh7th/cmp-cmdline",
-      },
+        "onsails/lspkind.nvim",
+        config = function()
+          require("lspkind").init({
+            symbol_map = {
+              Variable = "",
+              Keyword = "",
+            },
+          })
+        end,
+      }, -- vs-code like pictograms
+      "hrsh7th/cmp-cmdline",
     },
+
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       local lspkind = require("lspkind")
+
+      local icon_kinds = {
+        Array = " ",
+        Boolean = "󰨙 ",
+        Class = " ",
+        Codeium = "󰘦 ",
+        Color = " ",
+        Control = " ",
+        Collapsed = " ",
+        Constant = "󰏿 ",
+        Constructor = " ",
+        Copilot = " ",
+        Enum = " ",
+        EnumMember = " ",
+        Event = " ",
+        Field = " ",
+        File = " ",
+        Folder = " ",
+        Function = "󰊕 ",
+        Interface = " ",
+        Key = " ",
+        Keyword = " ",
+        Method = "󰊕 ",
+        Module = " ",
+        Namespace = "󰦮 ",
+        Null = " ",
+        Number = "󰎠 ",
+        Object = " ",
+        Operator = " ",
+        Package = " ",
+        Property = " ",
+        Reference = " ",
+        Snippet = " ",
+        String = " ",
+        Struct = "󰆼 ",
+        TabNine = "󰏚 ",
+        Text = " ",
+        TypeParameter = " ",
+        Unit = " ",
+        Value = " ",
+        Variable = "󰀫 ",
+      }
 
       cmp.setup({
         window = {
@@ -74,17 +125,18 @@ return {
         },
 
         sources = cmp.config.sources({
-          { name = "nvim_lsp" },
+          { name = "nvim_lsp" }, -- lsp
           { name = "luasnip" }, -- snippets
           { name = "buffer" }, -- text within current buffer
           { name = "path" }, -- file system paths
         }),
-
         formatting = {
-          format = lspkind.cmp_format({
-            maxwidth = 50,
-            ellipsis_char = "...",
-          }),
+          format = function(_, item)
+            if icon_kinds[item.kind] then
+              item.kind = icon_kinds[item.kind] .. item.kind
+            end
+            return item
+          end,
         },
       })
 
