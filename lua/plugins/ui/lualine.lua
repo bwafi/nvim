@@ -166,13 +166,12 @@ return {
 
     ins_left({
       Util.pretty_path(),
-      -- color = { fg = colors.magenta2 },
     })
 
-    ins_left({ "location", color = { fg = colors.violet } })
+    ins_left({ [[%l:%c]], color = { fg = colors.violet } })
 
     ins_left({
-      "progress",
+      [[%p%%]],
       color = { fg = tokyonight.green2 },
     })
 
@@ -185,6 +184,16 @@ return {
         color_warn = { fg = colors.yellow },
         color_info = { fg = colors.cyan },
       },
+    })
+
+    ins_left({
+      function()
+        return "%="
+      end,
+    })
+
+    ins_left({
+      Util.lsp_progress,
     })
 
     ins_right({

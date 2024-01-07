@@ -18,7 +18,6 @@ require("lazy").setup({
   { import = "plugins.coding" },
   { import = "plugins.ui" },
   { import = "plugins.editor" },
-  -- { import = "plugins.tools" },
   -- { import = "plugins" },
 }, {
   defaults = {
@@ -60,6 +59,13 @@ require("lazy").setup({
   },
 })
 
-require("config.keymaps")
-require("config.options")
-require("config.autocmds")
+for _, source in ipairs({
+  "config.keymaps",
+  "config.options",
+  "config.autocmds",
+}) do
+  local status_ok, fault = pcall(require, source)
+  if not status_ok then
+    vim.api.nvim_err_writeln("Failed to load " .. source .. "\n\n" .. fault)
+  end
+end
