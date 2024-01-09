@@ -9,24 +9,12 @@ return {
       "L3MON4D3/LuaSnip", -- snippet engine
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
       "rafamadriz/friendly-snippets", -- useful snippets
-      {
-        "onsails/lspkind.nvim",
-        config = function()
-          require("lspkind").init({
-            symbol_map = {
-              Variable = "",
-              Keyword = "",
-            },
-          })
-        end,
-      }, -- vs-code like pictograms
       "hrsh7th/cmp-cmdline",
     },
 
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-      local lspkind = require("lspkind")
 
       local icon_kinds = {
         Array = " ",
@@ -87,7 +75,8 @@ return {
           ghost_text = true,
           hl_group = "CmpGhostText",
         },
-        mapping = {
+
+        mapping = cmp.mapping.preset.insert({
           ["<C-p>"] = cmp.mapping.select_prev_item(),
           ["<C-n>"] = cmp.mapping.select_next_item(),
           ["<C-d>"] = cmp.mapping.scroll_docs(-4),
@@ -122,14 +111,16 @@ return {
             "i",
             "s",
           }),
-        },
+        }),
 
         sources = cmp.config.sources({
-          { name = "nvim_lsp" }, -- lsp
-          { name = "luasnip" }, -- snippets
-          { name = "buffer" }, -- text within current buffer
-          { name = "path" }, -- file system paths
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "path" },
+        }, {
+          { name = "buffer" },
         }),
+
         formatting = {
           format = function(_, item)
             if icon_kinds[item.kind] then

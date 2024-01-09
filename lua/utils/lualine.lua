@@ -1,4 +1,3 @@
--- local Util = require("utils.root")
 local M = {}
 
 function M.cwd()
@@ -65,6 +64,7 @@ function M.pretty_path(opts)
   end
 end
 
+-- TODO: lsp progress dont work for nvim 0.10.xx
 function M.lsp_progress()
   local lsp = vim.lsp.util.get_progress_messages()[1]
 
@@ -80,7 +80,7 @@ function M.lsp_progress()
     local frame = math.floor(ms / 120) % #spinners
     local spinner = spinners[frame + 1]
 
-    return string.format(" %%<%s %s ﴾%s%%%%﴿ ", spinner, name, percentage)
+    return string.format(" %%<%s %s %s ﴾%s%%%%﴿ ", spinner, name, percentage)
   end
 
   return ""

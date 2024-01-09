@@ -38,6 +38,8 @@ return {
       "delve",
       "goimports",
       "gofumpt",
+      "gomodifytags",
+      "impl",
       -- "golangci-lint",
       "golines",
     },

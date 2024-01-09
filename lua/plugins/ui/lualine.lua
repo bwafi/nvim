@@ -3,6 +3,7 @@ local Util = require("utils.lualine")
 return {
   "nvim-lualine/lualine.nvim",
   event = "VeryLazy",
+  -- enabled = false,
   init = function()
     vim.g.lualine_laststatus = vim.o.laststatus
     if vim.fn.argc(-1) > 0 then
@@ -184,12 +185,6 @@ return {
         color_warn = { fg = colors.yellow },
         color_info = { fg = colors.cyan },
       },
-    })
-
-    ins_left({
-      function()
-        return "%="
-      end,
     })
 
     ins_left({
