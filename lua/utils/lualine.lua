@@ -30,11 +30,12 @@ function M.format(component, text, hl_group)
   return component:format_hl(lualine_hl_group) .. text .. " " .. component:get_default_hl()
 end
 
----@param opts? {relative: "cwd"|"root", modified_hl: string?}
+---@param opts? {relative: "cwd"|"root", modified_hl: string?, max_width: number}
 function M.pretty_path(opts)
   opts = vim.tbl_extend("force", {
     relative = "cwd",
     modified_hl = "Constant",
+    max_width = 120,
   }, opts or {})
 
   return function(self)
@@ -52,15 +53,23 @@ function M.pretty_path(opts)
 
     local sep = package.config:sub(1, 1)
     local parts = vim.split(path, "[\\/]")
+    local filename = parts[#parts]
+
     if #parts > 3 then
-      parts = { parts[1], "…", parts[#parts - 1], parts[#parts] }
+      parts = { parts[1], "…", parts[#parts - 1], filename }
     end
 
     if opts.modified_hl and vim.bo.modified then
-      parts[#parts] = M.format(self, parts[#parts], opts.modified_hl)
+      filename = M.format(self, filename, opts.modified_hl)
     end
 
-    return table.concat(parts, sep)
+    local formatted_path = table.concat(parts, sep)
+
+    if vim.fn.winwidth(0) > opts.max_width then
+      return formatted_path
+    else
+      return filename
+    end
   end
 end
 
