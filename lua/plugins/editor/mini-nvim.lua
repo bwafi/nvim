@@ -2,27 +2,13 @@ return {
   -- operators
   {
     "echasnovski/mini.operators",
-    version = "*",
+    version = false,
     init = function()
       require("mini.operators").setup({
-        evaluate = {
-          prefix = "g=",
-          func = nil,
-        },
-        exchange = {
-          prefix = "gx",
-          reindent_linewise = true,
-        },
-        multiply = {
-          prefix = "gm",
-          func = nil,
-        },
-        replace = {
-          prefix = "gp",
-          reindent_linewise = true,
-        },
+        -- Sort text
         sort = {
-          prefix = "gs",
+          prefix = "gS",
+          -- Function which does the sort
           func = nil,
         },
       })
