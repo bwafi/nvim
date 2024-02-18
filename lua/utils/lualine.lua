@@ -74,25 +74,25 @@ function M.pretty_path(opts)
 end
 
 -- TODO: lsp progress dont work for nvim 0.10.xx
-function M.lsp_progress()
-  local lsp = vim.lsp.util.get_progress_messages()[1]
-
-  if lsp then
-    local name = lsp.name or ""
-    local percentage = lsp.percentage or 0
-
-    -- List of spinner symbols
-    local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-
-    -- Calculate spinner frame based on time
-    local ms = vim.loop.hrtime() / 1000000
-    local frame = math.floor(ms / 120) % #spinners
-    local spinner = spinners[frame + 1]
-
-    return string.format(" %%<%s %s %s ﴾%s%%%%﴿ ", spinner, name, percentage)
-  end
-
-  return ""
-end
+-- function M.lsp_progress()
+--   local lsp = vim.lsp.util.get_progress_messages()[1]
+--
+--   if lsp then
+--     local name = lsp.name or ""
+--     local percentage = lsp.percentage or 0
+--
+--     -- List of spinner symbols
+--     local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
+--
+--     -- Calculate spinner frame based on time
+--     local ms = vim.loop.hrtime() / 1000000
+--     local frame = math.floor(ms / 120) % #spinners
+--     local spinner = spinners[frame + 1]
+--
+--     return string.format(" %%<%s %s %s ﴾%s%%%%﴿ ", spinner, name, percentage)
+--   end
+--
+--   return ""
+-- end
 
 return M

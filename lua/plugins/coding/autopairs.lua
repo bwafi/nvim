@@ -7,7 +7,7 @@ return {
     local npairs = require("nvim-autopairs")
 
     npairs.setup({
-      map_bs = false,
+      map_bs = true,
       fast_wrap = {
         map = "<A-e>",
         chars = { "{", "[", "(", '"', "'" },
@@ -27,27 +27,27 @@ return {
     require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
     -- fix map_bs conflict with vim-visual-multi
-    vim.api.nvim_set_keymap("i", "<Plug>autopairs_bs", "v:lua.MPairs.autopairs_bs()", {
-      expr = true,
-      noremap = true,
-    })
-
-    vim.keymap.set("i", "<bs>", function()
-      if vim.fn.foldclosed(".") > -1 then
-        return "<C-o>zo"
-      end
-
-      local colnr = vim.fn.col(".")
-      local line = vim.fn.getline(".")
-      if vim.tbl_contains({ "(  )", "[  ]", "{  }", ">  <" }, line:sub(colnr - 2, colnr + 1)) then
-        return "<Plug>autopairs_bs"
-      end
-      if line:sub(colnr - 1, colnr) == "  " then
-        return "<bs>"
-      end
-
-      return "<Plug>autopairs_bs"
-    end, { expr = true, silent = true, noremap = true })
+    -- vim.api.nvim_set_keymap("i", "<Plug>autopairs_bs", "v:lua.MPairs.autopairs_bs()", {
+    --   expr = true,
+    --   noremap = true,
+    -- })
+    --
+    -- vim.keymap.set("i", "<bs>", function()
+    --   if vim.fn.foldclosed(".") > -1 then
+    --     return "<C-o>zo"
+    --   end
+    --
+    --   local colnr = vim.fn.col(".")
+    --   local line = vim.fn.getline(".")
+    --   if vim.tbl_contains({ "(  )", "[  ]", "{  }", ">  <" }, line:sub(colnr - 2, colnr + 1)) then
+    --     return "<Plug>autopairs_bs"
+    --   end
+    --   if line:sub(colnr - 1, colnr) == "  " then
+    --     return "<bs>"
+    --   end
+    --
+    --   return "<Plug>autopairs_bs"
+    -- end, { expr = true, silent = true, noremap = true })
 
     -- https://github.com/windwp/nvim-autopairs/wiki/Custom-rules#add-spaces-between-parentheses
     -- Add spaces between parentheses
