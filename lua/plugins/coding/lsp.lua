@@ -196,6 +196,13 @@ return {
             },
           })
         end,
+        ["emmet_language_server"] = function()
+          lspconfig.emmet_language_server.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+          })
+        end,
       })
     end,
   },

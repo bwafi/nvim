@@ -39,7 +39,7 @@ return {
       -- ufo opts
       require("ufo").setup({
         -- fold tesxt custom
-        close_fold_kinds = { "imports" },
+        close_fold_kinds_for_ft = { "imports" },
         fold_virt_text_handler = handler,
 
         -- if use Tressiter
