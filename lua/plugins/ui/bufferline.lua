@@ -2,7 +2,7 @@ return {
   "akinsho/bufferline.nvim",
   -- event = { "BufReadPost", "BufWritePost", "BufNewFile" },
   event = "VeryLazy",
-  -- version = "*",
+  version = "*",
   dependencies = "nvim-tree/nvim-web-devicons",
   opts = {
     options = {

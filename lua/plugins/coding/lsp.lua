@@ -8,10 +8,10 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     dependencies = {
+      "b0o/schemastore.nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "folke/neodev.nvim",
-      "b0o/schemastore.nvim",
     },
     opts = {
       diagnostics = {
@@ -93,7 +93,6 @@ return {
       require("neodev").setup()
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-
       capabilities.textDocument.completion.completionItem.snippetSupport = true
 
       capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
