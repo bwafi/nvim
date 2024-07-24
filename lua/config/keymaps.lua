@@ -32,8 +32,8 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- buffers
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
+map("n", "<S-tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
+map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>q", "<cmd>bdelete<cr>", { desc = "Close buffer" })
 map("n", "<leader>wq", "<cmd>BufferLineCloseOthers<cr>", { desc = "Close all buffer" })
 
@@ -99,7 +99,7 @@ map("n", "<leader>uw", "<cmd>setlocal wrap!<cr>", { desc = "Toggle Wrap", norema
 map("n", "<leader>tf", function()
   Util.open()
 end, { desc = "Terminal (cwd)" })
-map("n", "<C-_>", function()
+map("n", "<C-/>", function()
   Util.open()
 end, { desc = "Terminal (cwd)" })
 map("t", "<esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
@@ -108,7 +108,7 @@ map("t", "<C-h>", "<cmd>wincmd h<cr>", { desc = "Go to left window" })
 map("t", "<C-j>", "<cmd>wincmd j<cr>", { desc = "Go to lower window" })
 map("t", "<C-k>", "<cmd>wincmd k<cr>", { desc = "Go to upper window" })
 map("t", "<C-l>", "<cmd>wincmd l<cr>", { desc = "Go to right window" })
-map("t", "<C-_>", "<cmd>close<cr>", { desc = "Hide Terminal" }) -- ctrl-/ because '-' is character ACII for '/'
+map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" }) -- ctrl-/ because '-' is character ACII for '/'
 
 -- paste in command line mode
 map("c", "<c-v>", "<C-R>+", { noremap = true })

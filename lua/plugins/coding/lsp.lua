@@ -11,7 +11,16 @@ return {
       "b0o/schemastore.nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "folke/neodev.nvim",
+      {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+          library = {
+            { path = "luvit-meta/library", words = { "vim%.uv" } },
+          },
+        },
+      },
+      { "Bilal2453/luvit-meta", lazy = true },
     },
     opts = {
       diagnostics = {
@@ -35,8 +44,9 @@ return {
         --   focusable = false,
         --   relative = "cursor",
         -- })
+
         -- disable semantic token
-        client.server_capabilities.semanticTokensProvider = nil
+        -- client.server_capabilities.semanticTokensProvider = nil
 
         local nmap = function(keys, func, desc)
           if desc then
@@ -89,8 +99,6 @@ return {
 
       require("mason").setup()
       require("mason-lspconfig").setup()
-
-      require("neodev").setup()
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities.textDocument.completion.completionItem.snippetSupport = true

@@ -87,37 +87,16 @@ return {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           }),
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif require("luasnip").expand_or_jumpable() then
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-            else
-              fallback()
-            end
-          end, {
-            "i",
-            "s",
-          }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif require("luasnip").jumpable(-1) then
-              vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-            else
-              fallback()
-            end
-          end, {
-            "i",
-            "s",
-          }),
         }),
 
         sources = cmp.config.sources({
+          {
+            name = "lazydev",
+            group_index = 0,
+          },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-        }, {
           { name = "buffer" },
         }),
 
@@ -191,4 +170,70 @@ return {
       delete_check_events = "TextChanged",
     },
   },
+
+  -- {
+  --   "garymjr/nvim-snippets",
+  --   event = "InsertEnter",
+  --   dependencies = { "rafamadriz/friendly-snippets" },
+  --
+  --   opts = {
+  --     friendly_snippets = true,
+  --     extended_filetypes = {
+  --       typescript = { "javascript", "tsdoc" },
+  --       javascript = { "jsdoc" },
+  --       html = { "css", "javascript" },
+  --       lua = { "luadoc" },
+  --       python = { "python-docstring" },
+  --       java = { "javadoc", "java-testing" },
+  --       sh = { "shelldoc" },
+  --       php = { "phpdoc" },
+  --       ruby = { "rdoc" },
+  --       quarto = { "markdown" },
+  --       rmarkdown = { "markdown" },
+  --     },
+  --   },
+  --   keys = {
+  --     {
+  --       "<Tab>",
+  --       function()
+  --         if vim.snippet.active({ direction = 1 }) then
+  --           vim.schedule(function()
+  --             vim.snippet.jump(1)
+  --           end)
+  --           return
+  --         end
+  --         return "<Tab>"
+  --       end,
+  --       expr = true,
+  --       silent = true,
+  --       mode = "i",
+  --     },
+  --     {
+  --       "<Tab>",
+  --       function()
+  --         vim.schedule(function()
+  --           vim.snippet.jump(1)
+  --         end)
+  --       end,
+  --       expr = true,
+  --       silent = true,
+  --       mode = "s",
+  --     },
+  --     {
+  --       "<S-Tab>",
+  --       function()
+  --         if vim.snippet.active({ direction = -1 }) then
+  --           vim.schedule(function()
+  --             vim.snippet.jump(-1)
+  --           end)
+  --           return
+  --         end
+  --         return "<S-Tab>"
+  --       end,
+  --       expr = true,
+  --       silent = true,
+  --       mode = { "i", "s" },
+  --     },
+  --   },
+  -- },
 }
