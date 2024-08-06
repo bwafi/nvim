@@ -34,8 +34,8 @@ return {
       --   lsp_fallback = true,
       -- },
       formatters_by_ft = {
-        ["markdown"] = { { "prettierd" } },
-        ["markdown.mdx"] = { { "prettierd" } },
+        ["markdown"] = { "prettierd" },
+        ["markdown.mdx"] = { "prettierd" },
         ["javascript"] = { "prettierd" },
         ["javascriptreact"] = { "prettierd" },
         ["typescript"] = { "prettierd" },

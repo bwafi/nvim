@@ -2,6 +2,10 @@ local Util = require("utils.terminal")
 
 local map = vim.keymap.set
 
+-- better ^ adn $
+map({ "x", "n", "s" }, "<S-h>", "^")
+map({ "x", "n", "s" }, "<S-l>", "$")
+
 -- quit all
 map("n", "QQ", "<cmd>qa<cr>", { noremap = true, silent = true, desc = "Quit all" })
 
@@ -127,4 +131,6 @@ map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
 map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Pevious Tab" })
+
+map("n", "<leade>cm", "<cmd>Mason<cr>", { desc = "Mason" })

@@ -15,7 +15,7 @@ return {
       "html-lsp",
       "emmet-language-server",
       -- "typescript-language-server",
-      "vtsls",
+      -- "vtsls",
       "prettierd",
       "shfmt",
       "tailwindcss-language-server",

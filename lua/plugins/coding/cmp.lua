@@ -4,7 +4,6 @@ return {
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer", -- source for text in buffer
       "hrsh7th/cmp-path", -- source for file system paths
       "L3MON4D3/LuaSnip", -- snippet engine
       "saadparwaiz1/cmp_luasnip", -- for autocompletion
@@ -15,48 +14,6 @@ return {
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
-
-      local icon_kinds = {
-        Array = " ",
-        Boolean = "󰨙 ",
-        Class = " ",
-        Codeium = "󰘦 ",
-        Color = " ",
-        Control = " ",
-        Collapsed = " ",
-        Constant = "󰏿 ",
-        Constructor = " ",
-        Copilot = " ",
-        Enum = " ",
-        EnumMember = " ",
-        Event = " ",
-        Field = " ",
-        File = " ",
-        Folder = " ",
-        Function = "󰊕 ",
-        Interface = " ",
-        Key = " ",
-        Keyword = " ",
-        Method = "󰊕 ",
-        Module = " ",
-        Namespace = "󰦮 ",
-        Null = " ",
-        Number = "󰎠 ",
-        Object = " ",
-        Operator = " ",
-        Package = " ",
-        Property = " ",
-        Reference = " ",
-        Snippet = " ",
-        String = " ",
-        Struct = "󰆼 ",
-        TabNine = "󰏚 ",
-        Text = " ",
-        TypeParameter = " ",
-        Unit = " ",
-        Value = " ",
-        Variable = "󰀫 ",
-      }
 
       cmp.setup({
         window = {
@@ -87,6 +44,26 @@ return {
             behavior = cmp.ConfirmBehavior.Insert,
             select = true,
           }),
+
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
+
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
         }),
 
         sources = cmp.config.sources({
@@ -97,17 +74,16 @@ return {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer" },
         }),
 
-        formatting = {
-          format = function(_, item)
-            if icon_kinds[item.kind] then
-              item.kind = icon_kinds[item.kind] .. item.kind
-            end
-            return item
-          end,
-        },
+        -- formatting = {
+        --   format = function(_, item)
+        --     if icon_kinds[item.kind] then
+        --       item.kind = icon_kinds[item.kind] .. item.kind
+        --     end
+        --     return item
+        --   end,
+        -- },
       })
 
       -- `:` cmdline setup.
