@@ -88,12 +88,23 @@ return {
         relculright = true,
 
         segments = {
+          -- {
+          --   sign = {
+          --     name = { ".*" },
+          --     maxwidth = 1,
+          --     auto = false,
+          --     wrap = false,
+          --     fillchar = " ",
+          --   },
+          --   click = "v:lua.ScSa",
+          -- },
           {
             sign = {
-              name = { ".*" },
-              maxwidth = 1,
+              -- see: https://github.com/lewis6991/gitsigns.nvim/issues/902
+              namespace = { "diagnostic" },
+              maxwidth = 2,
+              colwidth = 1,
               auto = false,
-              wrap = false,
               fillchar = " ",
             },
             click = "v:lua.ScSa",
@@ -101,7 +112,6 @@ return {
           { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
           {
             sign = {
-              -- see: https://github.com/lewis6991/gitsigns.nvim/issues/902
               namespace = { "gitsigns" },
               maxwidth = 1,
               colwidth = 1,
