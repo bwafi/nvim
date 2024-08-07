@@ -99,17 +99,10 @@ return {
           --   click = "v:lua.ScSa",
           -- },
           {
-            sign = {
-              -- see: https://github.com/lewis6991/gitsigns.nvim/issues/902
-              namespace = { "diagnostic" },
-              maxwidth = 2,
-              colwidth = 1,
-              auto = false,
-              fillchar = " ",
-            },
+            sign = { namespace = { "diagnostic" }, maxwidth = 1, colwidth = 2, auto = false },
             click = "v:lua.ScSa",
           },
-          { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+          { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
           {
             sign = {
               namespace = { "gitsigns" },
