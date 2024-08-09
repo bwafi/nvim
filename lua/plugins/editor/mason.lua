@@ -28,7 +28,8 @@ return {
       "vue-language-server",
 
       -- PHP
-      "intelephense",
+      -- "intelephense",
+      "phpactor",
 
       -- sql
       "sqlls",

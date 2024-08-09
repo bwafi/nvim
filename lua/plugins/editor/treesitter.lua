@@ -1,20 +1,19 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
-  event = { "BufReadPost", "BufWritePost", "BufNewFile", "VeryLazy" },
+  event = { "BufReadPost", "BufWritePost", "BufNewFile" },
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-lua/plenary.nvim",
   },
-
-  -- init = function(plugin) -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
-  --   -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
-  --   -- no longer trigger the **nvim-treeitter** module to be loaded in time.
-  --   -- Luckily, the only thins that those plugins need are the custom queries, which we make available
-  --   -- during startup.
-  --   require("lazy.core.loader").add_to_rtp(plugin)
-  --   require("nvim-treesitter.query_predicates")
-  -- end,
+  init = function(plugin) -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+    -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+    -- no longer trigger the **nvim-treeitter** module to be loaded in time.
+    -- Luckily, the only thins that those plugins need are the custom queries, which we make available
+    -- during startup.
+    require("lazy.core.loader").add_to_rtp(plugin)
+    require("nvim-treesitter.query_predicates")
+  end,
   opts = {
     ensure_installed = {
       "vimdoc",
@@ -22,8 +21,10 @@ return {
       "lua",
       "html",
       "php",
+      "php_only",
       "css",
       "scss",
+      "blade",
       "sql",
       "json",
       "typescript",
@@ -38,9 +39,11 @@ return {
       "prisma",
     },
     auto_install = true,
+    -- sync_install = true,
     highlight = {
       enable = true,
-      additional_vim_regex_highlighting = { "ruby" },
+      additional_vim_regex_highlighting = false,
+      -- additional_vim_regex_highlighting = { "ruby" },
     },
     indent = { enable = true, disable = { "ruby" } },
 
@@ -87,6 +90,26 @@ return {
     },
   },
   config = function(_, opts)
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+    -- PERF: install tree-sitter-cli "npm install -g tree-sitter-cli"
+    parser_config.blade = {
+      install_info = {
+        url = "https://github.com/EmranMR/tree-sitter-blade",
+        files = { "src/parser.c" },
+        branch = "main",
+        generate_requires_npm = true,
+        requires_generate_from_grammar = true,
+      },
+      filetype = "blade",
+    }
+
+    vim.filetype.add({
+      pattern = {
+        [".*%.blade%.php"] = "blade",
+      },
+    })
+
     ---@diagnostic disable-next-line: missing-fields
     require("nvim-treesitter.configs").setup(opts)
   end,

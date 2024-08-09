@@ -136,7 +136,7 @@ return {
           lspconfig.emmet_language_server.setup({
             capabilities = capabilities,
             on_attach = on_attach,
-            filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+            filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "blade" },
           })
         end,
 
