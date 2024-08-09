@@ -22,16 +22,10 @@ return {
       },
       { "Bilal2453/luvit-meta", lazy = true },
     },
+
     opts = {
-      diagnostics = {
-        underline = true,
-        update_in_insert = false,
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          prefix = "●",
-        },
-        severity_sort = true,
+      codelens = {
+        enabled = false,
       },
     },
     config = function()
@@ -57,7 +51,8 @@ return {
         end
 
         nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
-        nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
+        nmap("<leader>ca", '<CMD>lua vim.lsp.buf.code_action({ context = { only = { "source", "refactor", "quickfix" } } }) <CR>', "Code Action")
+        -- nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
 
         nmap("gd", require("telescope.builtin").lsp_definitions, "Goto Definition")
         nmap("gr", require("telescope.builtin").lsp_references, "Goto References")
@@ -92,10 +87,24 @@ return {
         vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
       end
 
-      -- vim.diagnostic.config({
-      --   signs = true,
-      --   severity_sort = false,
-      -- })
+      -- diagnostic configirution
+      vim.diagnostic.config({
+        signs = { severity = { min = vim.diagnostic.severity.WARN } },
+        -- irtual_text = { severity = { min = vim.diagnostic.severity.WARN } },
+        -- signs = true,
+        virtual_text = false,
+        underline = true,
+        float = {
+          focusable = false,
+          style = "minimal",
+          border = "rounded",
+          source = "if_many",
+          header = "",
+          prefix = "",
+        },
+        update_in_insert = false, -- Tidak memperbarui diagnostik di mode insert
+        severity_sort = false, -- Tidak mengurutkan diagnostik berdasarkan tingkat keparahan
+      })
 
       require("mason").setup()
       require("mason-lspconfig").setup()
@@ -123,6 +132,14 @@ return {
         end,
 
         -- setting server
+        ["emmet_language_server"] = function()
+          lspconfig.emmet_language_server.setup({
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
+          })
+        end,
+
         ["lua_ls"] = function()
           lspconfig.lua_ls.setup({
             capabilities = capabilities,
@@ -201,13 +218,6 @@ return {
                 semanticTokens = false,
               },
             },
-          })
-        end,
-        ["emmet_language_server"] = function()
-          lspconfig.emmet_language_server.setup({
-            capabilities = capabilities,
-            on_attach = on_attach,
-            filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact" },
           })
         end,
       })

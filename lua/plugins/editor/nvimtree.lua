@@ -44,7 +44,7 @@ return {
       view = {
         signcolumn = "no",
         adaptive_size = false,
-        side = "left",
+        side = "right",
         width = 30,
         preserve_window_proportions = true,
       },
@@ -58,7 +58,7 @@ return {
       actions = {
         open_file = {
           resize_window = true,
-          quit_on_open = true, -- auto close nvimtree opening file
+          quit_on_open = false, -- auto close nvimtree opening file
         },
       },
       renderer = {
