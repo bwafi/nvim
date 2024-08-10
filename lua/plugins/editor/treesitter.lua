@@ -50,7 +50,7 @@ return {
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "<CR>",
+        init_selection = "vv",
         node_incremental = "<CR>",
         node_decremental = "<BS>",
         scope_incremental = "<TAB>",
@@ -80,6 +80,7 @@ return {
           ["at"] = "@comment.outer",
         },
       },
+
       move = {
         enable = true,
         goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer" },
