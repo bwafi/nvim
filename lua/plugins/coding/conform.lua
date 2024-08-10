@@ -44,6 +44,8 @@ return {
         ["lua"] = { "stylua" },
         ["json"] = { "jq" },
         ["go"] = { "goimports", "gofumpt", "golines" },
+        ["blade"] = { "blade-formatter" },
+        ["php"] = { "php_cs_fixer" },
       },
       formatters = {
         shfmt = {

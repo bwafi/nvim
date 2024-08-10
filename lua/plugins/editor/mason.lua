@@ -30,6 +30,9 @@ return {
       -- PHP
       -- "intelephense",
       "phpactor",
+      "blade-formatter",
+      "phpcs",
+      "php-cs-fixer",
 
       -- sql
       "sqlls",
