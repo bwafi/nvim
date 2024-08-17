@@ -1,23 +1,6 @@
 return {
-  -- operators
-  {
-    "echasnovski/mini.operators",
-    version = false,
-    init = function()
-      require("mini.operators").setup({
-        -- Sort text
-        sort = {
-          prefix = "gS",
-          -- Function which does the sort
-          func = nil,
-        },
-      })
-    end,
-  },
-
   -- cursorword
   {
-
     "echasnovski/mini.cursorword",
     event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     init = function()
