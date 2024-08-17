@@ -2,11 +2,10 @@ return {
   "mfussenegger/nvim-lint",
   -- enabled = true, -- TODO: linting handler with mason-lspconfig
   event = { "BufWritePost", "BufReadPost", "InsertLeave" },
-  opts = {
-    events = { "BufWritePost", "BufReadPost", "InsertLeave" },
-  },
   config = function()
     local lint = require("lint")
+
+    lint.events = { "BufWritePost", "BufReadPost", "InsertLeave" }
 
     lint.linters_by_ft = {
       -- javascript = { "eslint" },

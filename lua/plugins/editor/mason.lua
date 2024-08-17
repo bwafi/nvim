@@ -47,6 +47,10 @@ return {
       "impl",
       -- "golangci-lint",
       "golines",
+
+      -- Docker
+      "dockerfile-language-server",
+      "docker-compose-language-service",
     },
   },
   config = function(_, opts)

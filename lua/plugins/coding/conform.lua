@@ -51,6 +51,9 @@ return {
         shfmt = {
           prepend_args = { "-i", "2", "-ci" },
         },
+        prettierd = {
+          prepend_args = { "--bracket-same-line" },
+        },
       },
     })
   end,

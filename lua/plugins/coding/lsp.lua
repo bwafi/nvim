@@ -28,7 +28,7 @@ return {
         enabled = false,
       },
     },
-    config = function()
+    config = function(_, opts)
       local on_attach = function(client, bufnr)
         -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         --   border = "single",
@@ -73,6 +73,16 @@ return {
           print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
         end, "Workspace List Folders")
       end
+
+      -- if opts.codelens.enabled and vim.lsp.codelens then
+      --   vim.lsp.on_supports_method("textDocument/codeLens", function(client, buffer)
+      --     vim.lsp.codelens.refresh()
+      --     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+      --       buffer = buffer,
+      --       callback = vim.lsp.codelens.refresh,
+      --     })
+      --   end)
+      -- end
 
       -- diagnostics
       local signs = {
