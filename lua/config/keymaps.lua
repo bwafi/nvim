@@ -2,7 +2,10 @@ local Util = require("utils.terminal")
 
 local map = vim.keymap.set
 
--- Menambahkan keybinding untuk menampilkan jendela floating
+-- Select ALl
+map("n", "<C-a>", "ggVG", { desc = "Select all" })
+
+-- keybinding to display floating windows
 map("n", "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true, desc = "Show Diagnostic Float" })
 
 -- better ^ adn $
