@@ -52,7 +52,7 @@ return {
           prepend_args = { "-i", "2", "-ci" },
         },
         prettierd = {
-          prepend_args = { "--bracket-same-line" },
+          prepend_args = { "--bracket-same-line", "--print-width 300" },
         },
       },
     })
