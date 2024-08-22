@@ -42,6 +42,8 @@ return {
       "gopls",
       "delve",
       "goimports",
+      "gotests",
+      "iferr",
       "gofumpt",
       "gomodifytags",
       "impl",
