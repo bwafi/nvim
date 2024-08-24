@@ -3,6 +3,7 @@ return {
     "kevinhwang91/nvim-ufo",
     -- event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     event = "VeryLazy",
+    version = "*",
     dependencies = {
       "kevinhwang91/promise-async",
       "luukvbaal/statuscol.nvim",
