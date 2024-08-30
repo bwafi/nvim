@@ -3,7 +3,7 @@ return {
     "kevinhwang91/nvim-ufo",
     -- event = { "BufReadPost", "BufWritePost", "BufNewFile" },
     event = "VeryLazy",
-    version = "*",
+    -- version = "*",
     dependencies = {
       "kevinhwang91/promise-async",
       "luukvbaal/statuscol.nvim",
@@ -37,10 +37,14 @@ return {
         return newVirtText
       end
 
-      -- ufo opts
+      ---@diagnostic disable: missing-fields
       require("ufo").setup({
         -- fold tesxt custom
-        close_fold_kinds_for_ft = { "imports" },
+        close_fold_kinds_for_ft = {
+          default = { "imports", "comment" },
+          -- json = { "array" },
+          -- c = { "comment", "region" },
+        },
         fold_virt_text_handler = handler,
 
         -- if use Tressiter
