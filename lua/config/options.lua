@@ -1,8 +1,5 @@
 local opt = vim.opt
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-
 opt.autowrite = true -- Enable auto write
 opt.clipboard = "unnamedplus" -- Sync with system clipboard
 opt.completeopt = "menu,menuone,noselect"
@@ -22,7 +19,7 @@ opt.number = true -- Print line number
 opt.pumblend = 10 -- Popup blend
 opt.pumheight = 10 -- Maximum number of entries in a popup
 opt.relativenumber = true -- Relative line numbers
-opt.scrolloff = 2 -- Lines of context
+opt.scrolloff = 5 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
 opt.shiftround = true -- Round indent
 opt.shiftwidth = 2 -- Size of an indent

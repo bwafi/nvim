@@ -5,7 +5,8 @@ return {
     -- "nvim-treesitter/nvim-treesitter",
     "haydenmeade/neotest-jest",
     "marilari88/neotest-vitest",
-    "nvim-neotest/neotest-go",
+    -- "nvim-neotest/neotest-go",
+    { "fredrikaverpil/neotest-golang", version = "*" }, -- Installation
   },
   config = function()
     local neotest = require("neotest")
@@ -21,8 +22,13 @@ return {
           end,
         }),
         require("neotest-vitest")({}),
-        require("neotest-go")({
-          -- args = { "-tags=integration" },
+        -- require("neotest-go")({
+        --   -- args = { "-tags=integration" },
+        -- }),
+        require("neotest-golang")({
+          -- Here we can set options for neotest-golang, e.g.
+          -- go_test_args = { "-v", "-race", "-count=1", "-timeout=60s" },
+          dap_go_enabled = true, -- requires leoluz/nvim-dap-go
         }),
       },
       status = { virtual_text = true },
