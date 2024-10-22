@@ -194,6 +194,8 @@ return {
             on_attach = on_attach,
             settings = {
               gopls = {
+                -- Tambahkan buildFlags untuk mendukung build tag wireinject
+                buildFlags = { "-tags=wireinject" },
                 gofumpt = true,
                 codelenses = {
                   gc_details = false,
