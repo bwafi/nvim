@@ -47,6 +47,7 @@ return {
         -- ["go"] = { "goimports", "gofumpt", "golines" },
         ["blade"] = { "blade-formatter" },
         ["php"] = { "php_cs_fixer" },
+        ["sql"] = { "sql_formatter" },
       },
       formatters = {
         shfmt = {
