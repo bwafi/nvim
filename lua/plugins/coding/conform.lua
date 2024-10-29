@@ -22,17 +22,12 @@ return {
     local conform = require("conform")
 
     conform.setup({
-      format_on_save = function(bufnr)
-        -- Disable with a global or buffer-local variable
-        if vim.b[bufnr].disable_autoformat then
-          return
-        end
-        return { timeout_ms = 500, lsp_fallback = true }
-      end,
+      format_on_save = {
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 500,
+      },
 
-      -- format_after_save = {
-      --   lsp_fallback = true,
-      -- },
       formatters_by_ft = {
         ["markdown"] = { "prettierd" },
         ["markdown.mdx"] = { "prettierd" },
@@ -40,6 +35,8 @@ return {
         ["javascriptreact"] = { "prettierd" },
         ["typescript"] = { "prettierd" },
         ["typescriptreact"] = { "prettierd" },
+        ["yaml"] = { "prettierd" },
+        -- ["yml"] = { "prettierd" },
         ["html"] = { "prettierd" },
         ["lua"] = { "stylua" },
         ["json"] = { "jq" },

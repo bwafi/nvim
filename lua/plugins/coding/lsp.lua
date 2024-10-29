@@ -50,6 +50,11 @@ return {
           vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
         end
 
+        -- Formatter YAML
+        -- if client.name == "yamlls" then
+        --   client.server_capabilities.documentFormattingProvider = true
+        -- end
+
         nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
         nmap("<leader>ca", '<CMD>lua vim.lsp.buf.code_action({ context = { only = { "source", "refactor", "quickfix" } } }) <CR>', "Code Action")
         -- nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
@@ -228,6 +233,26 @@ return {
                 staticcheck = true,
                 directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
                 semanticTokens = false,
+              },
+            },
+          })
+        end,
+
+        ["yamlls"] = function()
+          lspconfig.yamlls.setup({
+            on_attach = function(client, bufnr)
+              client.server_capabilities.documentFormattingProvider = true -- I add this line
+              on_attach(client, bufnr)
+            end,
+            capabilities = capabilities,
+            settings = {
+              yaml = {
+                format = {
+                  enable = true,
+                },
+                schemaStore = {
+                  enable = true,
+                },
               },
             },
           })

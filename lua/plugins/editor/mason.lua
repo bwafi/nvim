@@ -53,6 +53,8 @@ return {
       -- Docker
       "dockerfile-language-server",
       "docker-compose-language-service",
+
+      "yaml-language-server",
     },
   },
   config = function(_, opts)
