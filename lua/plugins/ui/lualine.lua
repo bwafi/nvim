@@ -13,24 +13,22 @@ return {
     end
   end,
   config = function()
-    local tokyonight = require("tokyonight.colors").setup({ transform = true })
-
     local lualine = require("lualine")
 
     -- Color table for highlights
     local colors = {
-      bg = tokyonight.bg_statusline,
-      fg = tokyonight.fg_sidebar,
-      yellow = tokyonight.yellow,
-      cyan = tokyonight.cyan,
-      darkblue = tokyonight.blue7,
-      green = tokyonight.green,
-      orange = tokyonight.orange,
-      violet = tokyonight.purple,
-      magenta = tokyonight.magenta,
-      magenta2 = tokyonight.magenta2,
-      blue = tokyonight.blue,
-      red = tokyonight.red,
+      bg = "#1e2030",
+      fg = "#bbc2cf",
+      yellow = "#ECBE7B",
+      cyan = "#008080",
+      darkblue = "#081633",
+      green = "#98be65",
+      green2 = "41a6b5",
+      orange = "#FF8800",
+      violet = "#a9a1e1",
+      magenta = "#c678dd",
+      blue = "#51afef",
+      red = "#ec5f67",
     }
 
     local conditions = {
@@ -173,7 +171,7 @@ return {
 
     ins_left({
       [[%p%%]],
-      color = { fg = tokyonight.green2 },
+      color = { fg = colors.green2 },
     })
 
     ins_left({
