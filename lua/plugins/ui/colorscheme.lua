@@ -121,34 +121,34 @@ return {
   --   end,
   -- },
 
-  -- {
-  --   "folke/tokyonight.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("tokyonight").setup({
-  --       style = "moon",
-  --       transparent = false,
-  --       styles = {
-  --         sidebars = "transparent",
-  --         floats = "dark",
-  --       },
-  --     })
-  --     vim.cmd([[colorscheme tokyonight]])
-  --   end,
-  -- },
-
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("rose-pine").setup({
-        variant = "moon",
-        dark_variant = "moon",
+      require("tokyonight").setup({
+        style = "moon",
+        transparent = false,
+        styles = {
+          sidebars = "transparent",
+          floats = "dark",
+        },
       })
-      vim.cmd([[colorscheme rose-pine]])
+      vim.cmd([[colorscheme tokyonight]])
     end,
   },
+
+  -- {
+  --   "rose-pine/neovim",
+  --   name = "rose-pine",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("rose-pine").setup({
+  --       variant = "moon",
+  --       dark_variant = "moon",
+  --     })
+  --     vim.cmd([[colorscheme rose-pine]])
+  --   end,
+  -- },
 }
