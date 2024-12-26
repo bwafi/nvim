@@ -30,25 +30,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "snacks_dashboard", "nvcheatsheet", "neo-tree" },
-  callback = function()
-    require("ufo").detach()
-    vim.opt_local.foldenable = false
-  end,
-})
-
--- disable fold in buffer/filetypes
-autocmd("FileType", {
-  pattern = { "snacks_dashboard" },
-  callback = function()
-    require("ufo").detach()
-    vim.opt_local.foldenable = false
-    vim.opt_local.foldcolumn = "0" -- '0' is not bad
-    vim.opt_local.signcolumn = "no"
-  end,
-})
-
 -- close some filetypes with <q>
 autocmd("FileType", {
   group = augroup("close_with_q"),

@@ -2,6 +2,7 @@ return {
   "nvim-treesitter/nvim-treesitter",
   build = ":TSUpdate",
   event = { "BufReadPost", "BufWritePost", "BufNewFile" },
+  lazy = vim.fn.argc(-1) == 0,
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "nvim-lua/plenary.nvim",
