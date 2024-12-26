@@ -29,23 +29,17 @@ return {
 
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
-        -- See `:help K` for why this keymaplsp
-        map("K", function()
-          return vim.lsp.buf.hover()
-        end, "Hover")
-        map("gK", function()
-          return vim.lsp.buf.signature_help()
-        end, "Signature Help")
-        map("<c-k>", function()
-          return vim.lsp.buf.signature_help()
-        end, "Signature Help", "i")
 
+        -- stylua: ignore start
+        -- See `:help K` for why this keymaplsp
+        map("K", function() return vim.lsp.buf.hover() end, "Hover")
+        map("gK", function() return vim.lsp.buf.signature_help() end, "Signature Help")
+        map("<c-k>", function() return vim.lsp.buf.signature_help() end, "Signature Help", "i")
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
         map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
         map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-        map("<leader>wl", function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, "Workspace List Folders")
+        map("<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace List Folders")
+        -- stylua: ignore end
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
 
