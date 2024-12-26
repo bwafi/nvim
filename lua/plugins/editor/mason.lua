@@ -35,8 +35,8 @@ return {
       "php-cs-fixer",
 
       -- sql
-      "sqlls",
-      "sql-formatter",
+      -- "sqlls",
+      -- "sql-formatter",
 
       -- go
       "gopls",

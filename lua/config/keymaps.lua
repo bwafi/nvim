@@ -74,6 +74,8 @@ if vim.lsp.inlay_hint then
   Snacks.toggle.inlay_hints():map("<leader>uh")
 end
 
+-- stylua: ignore end
+
 -- Clear search with <esc>
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
@@ -133,10 +135,18 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 map("n", "<leader>uw", "<cmd>setlocal wrap!<cr>", { desc = "Toggle Wrap", noremap = true, silent = true })
 
 -- Terminal Mappings
-map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
-map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
-map("n", "<c-/>", function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
-map("n", "<c-_>", function() Snacks.terminal() end, { desc = "which_key_ignore" })
+map("n", "<leader>fT", function()
+  Snacks.terminal()
+end, { desc = "Terminal (cwd)" })
+map("n", "<leader>ft", function()
+  Snacks.terminal()
+end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-/>", function()
+  Snacks.terminal()
+end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-_>", function()
+  Snacks.terminal()
+end, { desc = "which_key_ignore" })
 
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })

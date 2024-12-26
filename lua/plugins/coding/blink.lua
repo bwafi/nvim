@@ -1,7 +1,9 @@
 return {
   {
     "saghen/blink.cmp",
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
     version = "*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -44,7 +46,15 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+        providers = {
+          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+        },
+
+        per_filetype = {
+          -- lua = { 'lsp', 'path' },
+          sql = { "dadbod" },
+        },
       },
     },
     opts_extend = { "sources.default" },
