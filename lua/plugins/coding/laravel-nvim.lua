@@ -4,6 +4,7 @@ return {
     "nvim-telescope/telescope.nvim",
     "tpope/vim-dotenv",
     "MunifTanjim/nui.nvim",
+    "kevinhwang91/promise-async",
     -- "nvimtools/none-ls.nvim",
   },
   cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },

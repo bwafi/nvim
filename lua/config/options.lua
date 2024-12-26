@@ -48,10 +48,18 @@ opt.linebreak = true
 opt.breakindent = true
 -- opt.breakat = " " -- "^I!@*-+;:,./?"  Default value
 opt.swapfile = false -- disable swap file
+opt.fillchars = {
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
+}
 
--- UFO folding https://github.com/kevinhwang91/nvim-ufo#minimal-configuration
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldcolumn = "1" -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
+opt.foldenable = true -- Aktifkan folding
+opt.foldmethod = "expr" -- Gunakan metode Tree-Sitter
+opt.foldexpr = "v:lua.require'utils.ui'.foldexpr()" -- foldexpr with utils
+opt.foldlevel = 99 -- Buka semua fold secara default
+opt.foldcolumn = "1" -- Tampilkan kolom fold
+opt.foldtext = ""
