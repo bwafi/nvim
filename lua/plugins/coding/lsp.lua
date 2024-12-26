@@ -10,7 +10,7 @@ return {
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+      group = vim.api.nvim_create_augroup("syro-lsp-attach", { clear = true }),
       callback = function(event)
         local map = function(keys, func, desc, mode)
           mode = mode or "n"
@@ -22,9 +22,6 @@ return {
         map("gI", "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>", "Goto Implementation")
         map("gy", "<cmd>FzfLua lsp_typedefs        jump_to_single_result=true ignore_current_line=true<cr>", "Type Definition")
 
-        -- map("<leader>ss", require("telescope.builtin").lsp_document_symbols, "Document Symbols")
-        -- map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Workspace Symbols")
-
         map("<leader>rn", vim.lsp.buf.rename, "Rename")
 
         -- map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
@@ -33,8 +30,15 @@ return {
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
 
         -- See `:help K` for why this keymaplsp
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
-        map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
+        map("K", function()
+          return vim.lsp.buf.hover()
+        end, "Hover")
+        map("gK", function()
+          return vim.lsp.buf.signature_help()
+        end, "Signature Help")
+        map("<c-k>", function()
+          return vim.lsp.buf.signature_help()
+        end, "Signature Help", "i")
 
         map("gD", vim.lsp.buf.declaration, "Goto Declaration")
         map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
@@ -51,7 +55,8 @@ return {
         end
 
         if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
-          local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+          local highlight_augroup = vim.api.nvim_create_augroup("syro-lsp-highlight", { clear = false })
+
           vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
             buffer = event.buf,
             group = highlight_augroup,
@@ -65,10 +70,10 @@ return {
           })
 
           vim.api.nvim_create_autocmd("LspDetach", {
-            group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+            group = vim.api.nvim_create_augroup("syro-lsp-detach", { clear = true }),
             callback = function(event2)
               vim.lsp.buf.clear_references()
-              vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+              vim.api.nvim_clear_autocmds({ group = "syro-lsp-highlight", buffer = event2.buf })
             end,
           })
         end
@@ -108,7 +113,6 @@ return {
     })
 
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
     local servers = {
