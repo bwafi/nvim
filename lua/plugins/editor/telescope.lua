@@ -28,7 +28,7 @@ return {
       },
     })
 
-    vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "Find recently opened files" })
+    -- vim.keymap.set("n", "<leader>?", require("telescope.builtin").oldfiles, { desc = "Find recently opened files" })
     vim.keymap.set("n", "<leader><space>", require("telescope.builtin").find_files, { desc = "Search Files" })
     vim.keymap.set("n", "<leader>/", function()
       require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
