@@ -54,7 +54,7 @@ return {
           normal = { c = { fg = colors.fg, bg = colors.bg } },
           inactive = { c = { fg = colors.fg, bg = colors.bg } },
         },
-        disabled_filetypes = { "dashboard" },
+        disabled_filetypes = { "snacks_dashboard" },
         always_divide_middle = true,
         globalstatus = true,
       },

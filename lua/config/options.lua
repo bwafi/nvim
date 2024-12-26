@@ -1,3 +1,5 @@
+vim.g.snacks_animate = true
+
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
@@ -46,7 +48,6 @@ opt.wrap = false -- Disable line wrap
 opt.laststatus = 0
 opt.linebreak = true
 opt.breakindent = true
--- opt.breakat = " " -- "^I!@*-+;:,./?"  Default value
 opt.swapfile = false -- disable swap file
 opt.fillchars = {
   foldopen = "",
