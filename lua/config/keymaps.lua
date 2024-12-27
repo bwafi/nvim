@@ -1,5 +1,3 @@
-local Util = require("utils.terminal")
-
 local map = vim.keymap.set
 
 -- Select ALl
@@ -171,6 +169,13 @@ map("n", "<leader>-", "<C-W>s", { desc = "Split window below", remap = true })
 map("n", "<leader>|", "<C-W>v", { desc = "Split window right", remap = true })
 Snacks.toggle.zoom():map("<leader>wm"):map("<leader>uZ")
 Snacks.toggle.zen():map("<leader>uz")
+
+-- stylua: ignore start
+-- git
+map("n", "<leader>gb", function() Snacks.git.blame_line() end, { desc = "Git Blame Line" })
+map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
+map({ "n", "x" }, "<leader>gY", function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false, }) end, { desc = "Git Browse (copy)" })
+-- stylua: ignore end
 
 -- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
