@@ -5,7 +5,6 @@ return {
     -- "nvim-treesitter/nvim-treesitter",
     "haydenmeade/neotest-jest",
     "marilari88/neotest-vitest",
-    -- "nvim-neotest/neotest-go",
     { "fredrikaverpil/neotest-golang", version = "*" }, -- Installation
   },
   config = function()
