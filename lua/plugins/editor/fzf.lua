@@ -3,7 +3,16 @@ return {
   lazy = false,
   dependencies = { "nvim-tree/nvim-web-devicons" },
   config = function()
-    require("fzf-lua").setup({})
+    require("fzf-lua").setup({
+
+      files = {
+        -- previewer      = "bat",          -- uncomment to override previewer
+        -- (name from 'previewers' table)
+        -- set to 'false' to disable
+        prompt = "Files❯ ",
+        cwd_prompt = false,
+      },
+    })
   end,
 
 -- stylua: ignore
