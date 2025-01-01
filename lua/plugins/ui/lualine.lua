@@ -2,6 +2,7 @@ local Util = require("utils.lualine")
 
 return {
   "nvim-lualine/lualine.nvim",
+  dependencies = "echasnovski/mini.icons",
   event = "VeryLazy",
   -- enabled = false,
   init = function()
@@ -165,6 +166,14 @@ return {
 
     ins_left({
       Util.pretty_path(),
+    })
+
+    ins_left({
+      "filetype",
+      colored = true,
+      icon_only = true,
+      icon = { align = "right" },
+      padding = { right = 0, left = 0 },
     })
 
     ins_left({ [[%l:%c]], color = { fg = colors.violet } })

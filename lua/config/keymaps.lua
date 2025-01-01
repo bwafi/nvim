@@ -42,10 +42,10 @@ map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 -- buffers
 map("n", "<S-tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-map("n", "<leader>q", function()
+map("n", "<leader>bd", function()
   Snacks.bufdelete()
 end, { desc = "Close buffer" })
-map("n", "<leader>wq", function()
+map("n", "<leader>bo", function()
   Snacks.bufdelete.other()
 end, { desc = "Close all buffer" })
 

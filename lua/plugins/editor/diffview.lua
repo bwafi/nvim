@@ -1,7 +1,7 @@
 return {
   {
     "sindrets/diffview.nvim",
-    dependencies = { "nvim-web-devicons" },
+    dependencies = { "echasnovski/mini.icons" },
     event = "VeryLazy",
     config = true,
     -- stylua: ignore
