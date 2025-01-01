@@ -14,7 +14,7 @@ return {
       callback = function(event)
         local map = function(keys, func, desc, mode)
           mode = mode or "n"
-          vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+          vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc, has })
         end
 
         map("gd", "<cmd>FzfLua lsp_definitions     jump_to_single_result=true ignore_current_line=true<cr>", "Goto Definition")
@@ -39,6 +39,7 @@ return {
         map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
         map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
         map("<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace List Folders")
+        map( "<leader>cR", function() Snacks.rename.rename_file() end, "Rename File", "n")
         -- stylua: ignore end
 
         local client = vim.lsp.get_client_by_id(event.data.client_id)
