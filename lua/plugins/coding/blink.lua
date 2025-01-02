@@ -8,7 +8,10 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = "enter" },
+
+      keymap = {
+        preset = "enter",
+      },
 
       appearance = {
         use_nvim_cmp_as_default = true,
@@ -21,6 +24,12 @@ return {
           auto_brackets = {
             enabled = true,
           },
+        },
+
+        list = {
+          selection = function(ctx)
+            return ctx.mode == "cmdline" and "auto_insert" or "preselect"
+          end,
         },
 
         ghost_text = {
@@ -47,6 +56,8 @@ return {
 
       sources = {
         default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+        -- Disable cmdline completions
+        -- cmdline = {},
         providers = {
           dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
         },
