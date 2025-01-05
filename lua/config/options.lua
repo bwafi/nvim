@@ -1,4 +1,5 @@
 vim.g.snacks_animate = true
+vim.hl = vim.highlight
 
 local opt = vim.opt
 

@@ -130,6 +130,10 @@ return {
         style = "moon",
         transparent = false,
         styles = {
+          comments = { italic = true },
+          keywords = { italic = true },
+          -- functions = {},
+          -- variables = {},
           sidebars = "transparent",
           floats = "dark",
         },
