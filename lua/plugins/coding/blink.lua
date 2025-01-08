@@ -2,12 +2,14 @@ return {
   {
     "saghen/blink.cmp",
     dependencies = {
-      "rafamadriz/friendly-snippets",
+      { "L3MON4D3/LuaSnip", version = "v2.*" },
     },
+    event = "InsertEnter",
     version = "*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      snippets = { preset = "luasnip" },
 
       keymap = {
         preset = "enter",
@@ -53,6 +55,7 @@ return {
           border = "rounded",
           draw = {
             gap = 2,
+            columns = { { "label", "label_description", gap = 1 }, { "kind_icon" }, { "kind" } },
           },
           winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None",
         },
@@ -73,5 +76,23 @@ return {
       },
     },
     opts_extend = { "sources.default" },
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    lazy = true,
+    dependencies = {
+      {
+        "rafamadriz/friendly-snippets",
+        config = function()
+          require("luasnip.loaders.from_vscode").lazy_load()
+          require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+        end,
+      },
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
   },
 }
