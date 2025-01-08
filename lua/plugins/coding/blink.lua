@@ -4,6 +4,7 @@ return {
     dependencies = {
       "rafamadriz/friendly-snippets",
     },
+
     version = "*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
@@ -27,9 +28,13 @@ return {
         },
 
         list = {
-          selection = function(ctx)
-            return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-          end,
+          selection = {
+            auto_insert = true,
+
+            preselect = function(ctx)
+              return ctx.mode ~= "cmdline" and not require("blink.cmp").snippet_active({ direction = 1 })
+            end,
+          },
         },
 
         ghost_text = {
