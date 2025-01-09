@@ -1,6 +1,9 @@
 # Neovim Configuration
 
 This is my personal configuration for Neovim, designed to enhance productivity and efficiency in software development.
+![image](https://github.com/user-attachments/assets/144b770a-0437-42a9-a180-be5e5a82f86d)
+![image](https://github.com/user-attachments/assets/7cdbbb05-a0f6-41d3-b1c2-174fbae59cba)
+
 
 ---
 
