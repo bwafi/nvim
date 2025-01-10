@@ -14,51 +14,9 @@ return {
   ██╔══██╗██╔══██║██║███╗██║██╔══██║██╔══╝  ██║ z         
   ██████╔╝██║  ██║╚███╔███╔╝██║  ██║██║     ██║           
   ╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝     ╚═╝           
-           ]],
+            ]],
       },
-      sections = {
-        { section = "header" },
-        {
-          pane = 2,
-          ttl = 2 * 60,
-          icon = " ",
-          title = "Todo",
-          enabled = true,
-          action = function()
-            Snacks.terminal.open("nb; fish", {
-              win = {
-                position = "float",
-                width = 0.6,
-                height = 0.6,
-              },
-            })
-          end,
-          indent = 3,
-          section = "terminal",
-          cmd = "nb",
-          key = "t",
-          height = 5,
-          padding = 1,
-        },
-        { section = "keys", gap = 1, padding = 1 },
-        { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-        { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
-        {
-          pane = 2,
-          icon = " ",
-          title = "Git Status",
-          section = "terminal",
-          enabled = function()
-            return Snacks.git.get_root() ~= nil
-          end,
-          cmd = "git status --short --branch --renames",
-          height = 5,
-          padding = 1,
-          ttl = 5 * 60,
-          indent = 3,
-        },
-        { section = "startup" },
-      },
+      example = "advanced",
     },
 
     indent = { enabled = true },
