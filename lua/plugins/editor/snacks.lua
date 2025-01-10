@@ -1,12 +1,3 @@
-local function term_nav(dir)
-  ---@param self snacks.terminal
-  return function(self)
-    return self:is_floating() and "<c-" .. dir .. ">" or vim.schedule(function()
-      vim.cmd.wincmd(dir)
-    end)
-  end
-end
-
 return {
   "folke/snacks.nvim",
   priority = 1000,
@@ -15,34 +6,60 @@ return {
   opts = {
     bigfile = { enabled = true },
     dashboard = {
-      example = "advanced",
+      preset = {
+        header = [[
+  ██████╗  █████╗ ██╗    ██╗ █████╗ ███████╗██╗          Z
+  ██╔══██╗██╔══██╗██║    ██║██╔══██╗██╔════╝██║      Z    
+  ██████╔╝███████║██║ █╗ ██║███████║█████╗  ██║   z       
+  ██╔══██╗██╔══██║██║███╗██║██╔══██║██╔══╝  ██║ z         
+  ██████╔╝██║  ██║╚███╔███╔╝██║  ██║██║     ██║           
+  ╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝     ╚═╝           
+           ]],
+      },
+      sections = {
+        { section = "header" },
+        {
+          pane = 2,
+          ttl = 2 * 60,
+          icon = " ",
+          title = "Todo",
+          enabled = true,
+          action = function()
+            Snacks.terminal.open("nb; fish", {
+              win = {
+                position = "float",
+                width = 0.6,
+                height = 0.6,
+              },
+            })
+          end,
+          indent = 3,
+          section = "terminal",
+          cmd = "nb",
+          key = "t",
+          height = 5,
+          padding = 1,
+        },
+        { section = "keys", gap = 1, padding = 1 },
+        { pane = 2, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+        { pane = 2, icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+        {
+          pane = 2,
+          icon = " ",
+          title = "Git Status",
+          section = "terminal",
+          enabled = function()
+            return Snacks.git.get_root() ~= nil
+          end,
+          cmd = "git status --short --branch --renames",
+          height = 5,
+          padding = 1,
+          ttl = 5 * 60,
+          indent = 3,
+        },
+        { section = "startup" },
+      },
     },
-
-    --     dashboard = {
-    --       preset = {
-    --         header = [[
-    -- ██████╗  █████╗ ██╗    ██╗ █████╗ ███████╗██╗          Z
-    -- ██╔══██╗██╔══██╗██║    ██║██╔══██╗██╔════╝██║      Z
-    -- ██████╔╝███████║██║ █╗ ██║███████║█████╗  ██║   z
-    -- ██╔══██╗██╔══██║██║███╗██║██╔══██║██╔══╝  ██║ z
-    -- ██████╔╝██║  ██║╚███╔███╔╝██║  ██║██║     ██║
-    -- ╚═════╝ ╚═╝  ╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝     ╚═╝
-    --       ]],
-    --         -- stylua: ignore
-    --         ---@type snacks.dashboard.Item[]
-    --         keys = {
-    --           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-    --           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-    --           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-    --           { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-    --           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-    --           { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-    --           { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
-    --           { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-    --           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-    --         },
-    --       },
-    --     },
 
     indent = { enabled = true },
     input = { enabled = true },
@@ -51,7 +68,11 @@ return {
     scroll = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
-    terminal = { enabled = true },
+    terminal = {
+      win = {
+        position = "bottom",
+      },
+    },
     styles = {
       input = {
         relative = "cursor",
