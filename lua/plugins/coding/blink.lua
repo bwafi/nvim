@@ -62,6 +62,7 @@ return {
       },
 
       sources = {
+        -- default = { "lsp", "path", "snippets", "buffer", "dadbod" },
         default = { "lsp", "path", "snippets", "buffer" },
         -- Disable cmdline completions
         -- cmdline = {},
