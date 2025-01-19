@@ -62,16 +62,16 @@ return {
       },
 
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "dadbod" },
+        default = { "lsp", "path", "snippets", "buffer" },
         -- Disable cmdline completions
         -- cmdline = {},
         providers = {
-          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+          -- dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
         },
 
         per_filetype = {
           -- lua = { 'lsp', 'path' },
-          sql = { "dadbod" },
+          -- sql = { "dadbod" },
         },
       },
     },
