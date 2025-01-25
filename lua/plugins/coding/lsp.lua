@@ -263,67 +263,6 @@ return {
             end,
             desc = "File References",
           },
-          {
-            "<leader>co",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.organizeImports" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Organize Imports",
-          },
-          {
-            "<leader>cM",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.addMissingImports.ts" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Add missing imports",
-          },
-          {
-            "<leader>cu",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.removeUnused.ts" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Remove unused imports",
-          },
-          {
-            "<leader>cD",
-            function()
-              vim.lsp.buf.code_action({
-                apply = true,
-                context = {
-                  only = { "source.fixAll.ts" },
-                  diagnostics = {},
-                },
-              })
-            end,
-            desc = "Fix all diagnostics",
-          },
-          {
-            "<leader>cV",
-            function()
-              utils.execute({
-                command = "typescript.selectTypeScriptVersion",
-              })
-            end,
-            desc = "Select TS workspace version",
-          },
         },
       },
 
