@@ -19,6 +19,12 @@ return {
           vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc, has })
         end
 
+        -- LSP keyemap Snacks.picker
+        map( "gd", function() Snacks.picker.lsp_definitions() end,"Goto Definition" )
+        map( "gr", function() Snacks.picker.lsp_references() end,"References" )
+        map( "gI", function() Snacks.picker.lsp_implementations() end,"Goto Implementation" )
+        map( "gy", function() Snacks.picker.lsp_type_definitions() end,"Goto T[y]pe Definition" )
+
         map("gd", "<cmd>FzfLua lsp_definitions     jump_to_single_result=true ignore_current_line=true<cr>", "Goto Definition")
         map("gr", "<cmd>FzfLua lsp_references      jump_to_single_result=true ignore_current_line=true<cr>", "Goto References")
         map("gI", "<cmd>FzfLua lsp_implementations jump_to_single_result=true ignore_current_line=true<cr>", "Goto Implementation")
