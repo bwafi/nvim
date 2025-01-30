@@ -11,7 +11,7 @@ map({ "x", "n", "s" }, "<S-h>", "^", { noremap = true, silent = true, desc = "Qu
 map({ "x", "n", "s" }, "<S-l>", "$", { noremap = true, silent = true, desc = "Quit all" })
 
 -- quit all
-map("n", "QQ", "<cmd>qa<cr>", { noremap = true, silent = true, desc = "Quit all" })
+map("n", "<leader>qq", "<cmd>qa<cr>", { noremap = true, silent = true, desc = "Quit all" })
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
