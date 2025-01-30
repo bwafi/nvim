@@ -1,4 +1,4 @@
-local Util = require("utils.mini")
+local utils = require("utils.mini")
 
 return {
   {
@@ -160,11 +160,27 @@ return {
     end,
     config = function(_, opts)
       require("mini.ai").setup(opts)
-      Util.on_load("which-key.nvim", function()
+      utils.on_load("which-key.nvim", function()
         vim.schedule(function()
-          Util.ai_whichkey(opts)
+          utils.ai_whichkey(opts)
         end)
       end)
     end,
+  },
+
+  {
+    "echasnovski/mini.surround",
+    event = "VeryLazy",
+    opts = {
+      mappings = {
+        add = "gsa",
+        delete = "gsd",
+        find = "gsf",
+        find_left = "gsF",
+        highlight = "gsh",
+        replace = "gsr",
+        update_n_lines = "gsn",
+      },
+    },
   },
 }
