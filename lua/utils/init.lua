@@ -2,6 +2,7 @@ local LazyUtil = require("lazy.core.util")
 
 ---@class lazyvim.util: LazyUtilCore
 ---@field lsp utils.lsp
+---@field mini utils.mini
 local M = {}
 
 setmetatable(M, {
@@ -26,6 +27,29 @@ function M.deprecate(old, new)
     stacktrace = true,
     stacklevel = 6,
   })
+end
+
+---@param name string
+---@param fn fun(name:string)
+function M.on_load(name, fn)
+  if M.is_loaded(name) then
+    fn(name)
+  else
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "LazyLoad",
+      callback = function(event)
+        if event.data == name then
+          fn(name)
+          return true
+        end
+      end,
+    })
+  end
+end
+
+function M.is_loaded(name)
+  local Config = require("lazy.core.config")
+  return Config.plugins[name] and Config.plugins[name]._.loaded
 end
 
 return M

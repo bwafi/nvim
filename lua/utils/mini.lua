@@ -1,26 +1,8 @@
+---@class utils.mini
 local M = {}
 
-function M.is_loaded(name)
-  local Config = require("lazy.core.config")
-  return Config.plugins[name] and Config.plugins[name]._.loaded
-end
-
-function M.on_load(name, fn)
-  if M.is_loaded(name) then
-    fn(name)
-  else
-    vim.api.nvim_create_autocmd("User", {
-      pattern = "LazyLoad",
-      callback = function(event)
-        if event.data == name then
-          fn(name)
-          return true
-        end
-      end,
-    })
-  end
-end
-
+-- register all text objects with which-key
+---@param opts table
 function M.ai_whichkey(opts)
   local objects = {
     { " ", desc = "whitespace" },
@@ -52,6 +34,7 @@ function M.ai_whichkey(opts)
     { "}", desc = "{} with ws" },
   }
 
+  ---@type wk.Spec[]
   local ret = { mode = { "o", "x" } }
   ---@type table<string, string>
   local mappings = vim.tbl_extend("force", {}, {
