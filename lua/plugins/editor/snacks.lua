@@ -98,7 +98,7 @@ return {
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
 
     -- Snacks explorer
-    { "<leader>e", function() Snacks.picker.explorer({ cwd = utils.root() }) end, desc = "Explorer Snacks (root dir)" },
-    { "<leader>E", function() Snacks.picker.explorer() end, desc = "Explorer Snacks (cwd)" },
+    { "<leader>e", function() Snacks.explorer({ cwd = utils.root() }) end, desc = "Explorer Snacks (root dir)" },
+    { "<leader>E", function() Snacks.explorer() end, desc = "Explorer Snacks (cwd)" },
   },
 }
