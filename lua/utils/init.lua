@@ -23,6 +23,10 @@ setmetatable(M, {
   end,
 })
 
+function M.is_win()
+  return vim.uv.os_uname().sysname:find("Windows") ~= nil
+end
+
 function M.deprecate(old, new)
   M.warn(("`%s` is deprecated. Please use `%s` instead"):format(old, new), {
     title = "LazyVim",

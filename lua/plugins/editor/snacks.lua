@@ -96,5 +96,9 @@ return {
     { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
     -- Lsp
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+
+    -- Snacks explorer
+    { "<leader>e", function() Snacks.picker.explorer({ cwd = utils.root() }) end, desc = "Explorer Snacks (root dir)" },
+    { "<leader>E", function() Snacks.picker.explorer() end, desc = "Explorer Snacks (cwd)" },
   },
 }

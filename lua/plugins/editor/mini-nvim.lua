@@ -1,5 +1,3 @@
-local utils = require("utils.mini")
-
 return {
   {
     "echasnovski/mini.icons",
@@ -150,7 +148,7 @@ return {
       require("mini.ai").setup(opts)
       utils.on_load("which-key.nvim", function()
         vim.schedule(function()
-          utils.ai_whichkey(opts)
+          utils.mini.ai_whichkey(opts)
         end)
       end)
     end,
