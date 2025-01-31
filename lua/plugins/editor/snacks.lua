@@ -18,6 +18,7 @@ return {
       },
       example = "advanced",
     },
+    explorer = {},
     picker = {},
     indent = { enabled = true },
     input = { enabled = true },
