@@ -1,28 +1,25 @@
+---@class utils.lualine
 local M = {}
 
-function M.cwd()
-  return M.realpath(vim.loop.cwd()) or ""
-end
-
-function M.realpath(path)
-  if path == "" or path == nil then
-    return nil
-  end
-  return vim.loop.fs_realpath(path) or path
-end
-
-function M.get_root()
-  local root_patterns = { ".git", "init.lua", "Makefile", "README.md" }
-  local path = vim.fn.expand("%:p:h")
-
-  for _, pattern in ipairs(root_patterns) do
-    local found = vim.fn.finddir(pattern, path .. ";")
-    if found and found ~= "" then
-      return vim.fn.fnamemodify(found, ":p:h")
-    end
-  end
-
-  return M.cwd()
+---@param icon string
+---@param status fun(): nil|"ok"|"error"|"pending"
+function M.status(icon, status)
+  local colors = {
+    ok = "Special",
+    error = "DiagnosticError",
+    pending = "DiagnosticWarn",
+  }
+  return {
+    function()
+      return icon
+    end,
+    cond = function()
+      return status() ~= nil
+    end,
+    color = function()
+      return { fg = Snacks.util.color(colors[status()] or colors.ok) }
+    end,
+  }
 end
 
 ---@param component any
@@ -63,7 +60,7 @@ function M.pretty_path(opts)
     modified_hl = "MatchParen",
     directory_hl = "",
     filename_hl = "Bold",
-    modified_sign = " ",
+    modified_sign = "",
     readonly_icon = " 󰌾 ",
     length = 3,
   }, opts or {})
@@ -75,12 +72,13 @@ function M.pretty_path(opts)
       return ""
     end
 
-    local cwd = M.cwd()
-    local root = M.get_root()
+    path = utils.norm(path)
+    local root = utils.root.get({ normalize = true })
+    local cwd = utils.root.cwd()
 
     if opts.relative == "cwd" and path:find(cwd, 1, true) == 1 then
       path = path:sub(#cwd + 2)
-    else
+    elseif path:find(root, 1, true) == 1 then
       path = path:sub(#root + 2)
     end
 
@@ -90,7 +88,7 @@ function M.pretty_path(opts)
     if opts.length == 0 then
       parts = parts
     elseif #parts > opts.length then
-      parts = { parts[1], "…", table.concat({ unpack(parts, #parts - opts.length + 2, #parts) }, sep) }
+      parts = { parts[1], "…", unpack(parts, #parts - opts.length + 2, #parts) }
     end
 
     if opts.modified_hl and vim.bo.modified then
@@ -114,26 +112,48 @@ function M.pretty_path(opts)
   end
 end
 
--- TODO: lsp progress dont work for nvim 0.10.xx
--- function M.lsp_progress()
---   local lsp = vim.lsp.util.get_progress_messages()[1]
---
---   if lsp then
---     local name = lsp.name or ""
---     local percentage = lsp.percentage or 0
---
---     -- List of spinner symbols
---     local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
---
---     -- Calculate spinner frame based on time
---     local ms = vim.loop.hrtime() / 1000000
---     local frame = math.floor(ms / 120) % #spinners
---     local spinner = spinners[frame + 1]
---
---     return string.format(" %%<%s %s %s ﴾%s%%%%﴿ ", spinner, name, percentage)
---   end
---
---   return ""
--- end
+---@param opts? {cwd:false, subdirectory: true, parent: true, other: true, icon?:string}
+function M.root_dir(opts)
+  opts = vim.tbl_extend("force", {
+    cwd = false,
+    subdirectory = true,
+    parent = true,
+    other = true,
+    icon = "󱉭 ",
+    color = function()
+      return { fg = Snacks.util.color("Special") }
+    end,
+  }, opts or {})
+
+  local function get()
+    local cwd = utils.root.cwd()
+    local root = utils.root.get({ normalize = true })
+    local name = vim.fs.basename(root)
+
+    if root == cwd then
+      -- root is cwd
+      return opts.cwd and name
+    elseif root:find(cwd, 1, true) == 1 then
+      -- root is subdirectory of cwd
+      return opts.subdirectory and name
+    elseif cwd:find(root, 1, true) == 1 then
+      -- root is parent directory of cwd
+      return opts.parent and name
+    else
+      -- root and cwd are not related
+      return opts.other and name
+    end
+  end
+
+  return {
+    function()
+      return (opts.icon and opts.icon .. " ") .. get()
+    end,
+    cond = function()
+      return type(get()) == "string"
+    end,
+    color = opts.color,
+  }
+end
 
 return M
