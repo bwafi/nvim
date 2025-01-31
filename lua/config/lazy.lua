@@ -11,6 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+_G.utils = require("utils")
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
