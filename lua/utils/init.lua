@@ -1,6 +1,7 @@
 local LazyUtil = require("lazy.core.util")
 
 ---@class lazyvim.util: LazyUtilCore
+---@field lsp utils.lsp
 local M = {}
 
 setmetatable(M, {
