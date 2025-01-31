@@ -1,3 +1,4 @@
+---@class utils.lsp
 local M = {}
 
 ---@class LspCommand: lsp.ExecuteCommandParams

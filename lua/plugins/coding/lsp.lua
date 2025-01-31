@@ -1,5 +1,3 @@
-local utils = require("utils.lsp")
-
 return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPost", "BufWritePost", "BufNewFile" },
@@ -253,7 +251,7 @@ return {
             "gD",
             function()
               local params = vim.lsp.util.make_position_params()
-              utils.execute({
+              utils.lsp.execute({
                 command = "typescript.goToSourceDefinition",
                 arguments = { params.textDocument.uri, params.position },
                 open = true,
@@ -264,7 +262,7 @@ return {
           {
             "gR",
             function()
-              utils.execute({
+              utils.lsp.execute({
                 command = "typescript.findAllFileReferences",
                 arguments = { vim.uri_from_bufnr(0) },
                 open = true,
