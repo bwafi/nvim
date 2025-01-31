@@ -1,6 +1,6 @@
 local LazyUtil = require("lazy.core.util")
 
----@class lazyvim.util: LazyUtilCore
+---@class utils: LazyUtilCore
 ---@field lsp utils.lsp
 ---@field mini utils.mini
 ---@field lualine utils.lualine
