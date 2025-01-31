@@ -1,5 +1,3 @@
-local Util = require("utils.lualine")
-
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = "echasnovski/mini.icons",
@@ -165,7 +163,7 @@ return {
     })
 
     ins_left({
-      Util.pretty_path(),
+      utils.lualine.pretty_path(),
     })
 
     ins_left({
@@ -194,9 +192,9 @@ return {
       },
     })
 
-    ins_left({
-      Util.lsp_progress,
-    })
+    -- ins_left({
+    --   Util.lsp_progress,
+    -- })
 
     ins_right({
       function()
