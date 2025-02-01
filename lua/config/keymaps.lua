@@ -40,8 +40,6 @@ map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
 
 -- buffers
-map("n", "<S-tab>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-map("n", "<tab>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bd", function()
   Snacks.bufdelete()
 end, { desc = "Close buffer" })
@@ -174,6 +172,7 @@ Snacks.toggle.zen():map("<leader>uz")
 -- git
 map("n", "<leader>gb", function() Snacks.git.blame_line() end, { desc = "Git Blame Line" })
 map({ "n", "x" }, "<leader>gB", function() Snacks.gitbrowse() end, { desc = "Git Browse (open)" })
+---@diagnostic disable-next-line: missing-fields
 map({ "n", "x" }, "<leader>gY", function() Snacks.gitbrowse({ open = function(url) vim.fn.setreg("+", url) end, notify = false, }) end, { desc = "Git Browse (copy)" })
 -- stylua: ignore end
 
