@@ -287,6 +287,7 @@ return {
 
     require("mason").setup()
 
+    ---@diagnostic disable-next-line: missing-fields
     require("mason-lspconfig").setup({
       handlers = {
         function(server_name)
