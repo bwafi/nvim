@@ -79,18 +79,3 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "*.norg" },
   command = "set conceallevel=3",
 })
-
--- Avoid scrolling when switch buffers
--- vim.api.nvim_create_autocmd("BufLeave", {
---   callback = function()
---     vim.w.saved_view = vim.fn.winsaveview()
---   end,
--- })
---
--- vim.api.nvim_create_autocmd("BufEnter", {
---   callback = function()
---     if vim.w.saved_view then
---       vim.fn.winrestview(vim.w.saved_view)
---     end
---   end,
--- })
