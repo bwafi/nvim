@@ -4,7 +4,7 @@ return {
   cmd = "ConformInfo",
   -- stylua: ignore start
   keys = {
-    { "<leader>f", function() require("conform").format({ async = true, lsp_fallback = true }) end, mode = { "n" }, desc = "Format buffer", },
+    { "<leader>cf", function() require("conform").format({ async = true, lsp_fallback = true }) end, mode = { "n" }, desc = "Format buffer", },
     { "<leader>uf", "<cmd>FormatToggle!<cr>", mode = { "x", "n", "s" }, desc = "Toggle Format (buffer)", },
     { "<leader>uF", "<cmd>FormatToggle<cr>", mode = { "x", "n", "s" }, desc = "Toggle Format (global)", },
   },
