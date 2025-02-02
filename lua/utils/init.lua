@@ -37,6 +37,21 @@ function M.deprecate(old, new)
 end
 
 ---@param name string
+function M.get_plugin(name)
+  return require("lazy.core.config").spec.plugins[name]
+end
+
+---@param name string
+function M.opts(name)
+  local plugin = M.get_plugin(name)
+  if not plugin then
+    return {}
+  end
+  local Plugin = require("lazy.core.plugin")
+  return Plugin.values(plugin, "opts", false)
+end
+
+---@param name string
 ---@param fn fun(name:string)
 function M.on_load(name, fn)
   if M.is_loaded(name) then

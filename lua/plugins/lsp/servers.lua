@@ -1,8 +1,9 @@
-local servers = {
+local M = {}
+
+M.servers = {
   emmet_language_server = {
     filetypes = { "css", "eruby", "html", "javascript", "javascriptreact", "less", "sass", "scss", "pug", "typescriptreact", "blade" },
   },
-
   jsonls = {
     settings = {
       json = {
@@ -11,11 +12,9 @@ local servers = {
       },
     },
   },
-
   gopls = {
     settings = {
       gopls = {
-        -- Tambahkan buildFlags untuk mendukung build tag wireinject
         buildFlags = { "-tags=wireinject" },
         gofumpt = true,
         codelenses = {
@@ -52,11 +51,7 @@ local servers = {
       },
     },
   },
-
   lua_ls = {
-    -- cmd = {...},
-    -- filetypes = { ...},
-    -- capabilities = {},
     settings = {
       Lua = {
         workspace = {
@@ -82,10 +77,7 @@ local servers = {
       },
     },
   },
-
   vtsls = {
-    -- explicitly add default filetypes, so that we can extend
-    -- them in related extras
     filetypes = {
       "javascript",
       "javascriptreact",
@@ -147,7 +139,6 @@ local servers = {
       },
     },
   },
-
   yamlls = {
     settings = {
       yaml = {
@@ -162,4 +153,4 @@ local servers = {
   },
 }
 
-return servers
+return M
