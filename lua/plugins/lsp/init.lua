@@ -21,14 +21,15 @@ return {
           header = "",
           prefix = "",
         },
-        virtual_text = {
-          spacing = 4,
-          source = "if_many",
-          -- prefix = "●",
-          -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
-          -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
-          prefix = "icons",
-        },
+        virtual_text = false,
+        -- virtual_text = {
+        --   spacing = 4,
+        --   source = "if_many",
+        --   -- prefix = "●",
+        --   -- this will set set the prefix to a function that returns the diagnostics icon based on the severity
+        --   -- this only works on a recent 0.10.0 build. Will be set to "●" when not supported
+        --   prefix = "icons",
+        -- },
         update_in_insert = false,
         severity_sort = true,
         signs = {
@@ -65,6 +66,11 @@ return {
   end,
   config = function(_, opts)
     utils.lsp.setup()
+    utils.lsp.on_attach(function(client, buffer)
+      require("plugins.lsp.keymaps").on_attach(client, buffer)
+    end)
+
+    utils.lsp.on_dynamic_capability(require("plugins.lsp.keymaps").on_attach)
 
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("syro-lsp-attach", { clear = true }),
