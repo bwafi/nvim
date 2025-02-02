@@ -72,38 +72,6 @@ return {
 
     utils.lsp.on_dynamic_capability(require("plugins.lsp.keymaps").on_attach)
 
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("syro-lsp-attach", { clear = true }),
-      callback = function(event)
-        local map = function(keys, func, desc, mode)
-          mode = mode or "n"
-          vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-        end
-
-        -- stylua: ignore start
-        -- LSP keyemap Snacks.picker
-        map("gd", function() Snacks.picker.lsp_definitions() end, "Goto Definition")
-        map("gr", function() Snacks.picker.lsp_references() end, "References")
-        map("gI", function() Snacks.picker.lsp_implementations() end, "Goto Implementation")
-        map("gy", function() Snacks.picker.lsp_type_definitions() end, "Goto T[y]pe Definition")
-        map("<leader>rn", vim.lsp.buf.rename, "Rename")
-        -- map("<leader>ca", vim.lsp.buf.code_action, "Code Action", { "n", "x" })
-        map("<leader>ca", '<CMD>lua vim.lsp.buf.code_action({ context = { only = { "source", "refactor", "quickfix" } } }) <CR>', "Code Action")
-        map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-        -- See `:help K` for why this keymaplsp
-        map("K", function() return vim.lsp.buf.hover() end, "Hover")
-        map("gK", function() return vim.lsp.buf.signature_help() end, "Signature Help")
-        map("<c-k>", function() return vim.lsp.buf.signature_help() end, "Signature Help", "i")
-        map("gD", vim.lsp.buf.declaration, "Goto Declaration")
-        map("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
-        map("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-        map("<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "Workspace List Folders")
-        map( "<leader>cR", function() Snacks.rename.rename_file() end, "Rename File", "n")
-        -- stylua: ignore end
-        local client = vim.lsp.get_client_by_id(event.data.client_id)
-      end,
-    })
-
     if vim.fn.has("nvim-0.10") == 1 then
       -- inlay hints
       if opts.inlay_hints.enabled then
