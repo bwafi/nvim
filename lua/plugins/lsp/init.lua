@@ -44,7 +44,7 @@ return {
       inlay_hints = {
         enabled = true,
         -- exclude = { "vue", "typescriptreact" },
-        exclude = { "vue", "go" },
+        exclude = { "vue" },
       },
       codelens = {
         enabled = false,
@@ -72,26 +72,24 @@ return {
 
     utils.lsp.on_dynamic_capability(require("plugins.lsp.keymaps").on_attach)
 
-    if vim.fn.has("nvim-0.10") == 1 then
-      -- inlay hints
-      if opts.inlay_hints.enabled then
-        utils.lsp.on_supports_method("textDocument/inlayHint", function(client, buffer)
-          if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype) then
-            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-          end
-        end)
-      end
+    -- inlay hints
+    if opts.inlay_hints.enabled then
+      utils.lsp.on_supports_method("textDocument/inlayHint", function(client, buffer)
+        if vim.api.nvim_buf_is_valid(buffer) and vim.bo[buffer].buftype == "" and not vim.tbl_contains(opts.inlay_hints.exclude, vim.bo[buffer].filetype) then
+          vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+        end
+      end)
+    end
 
-      -- code lens
-      if opts.codelens.enabled and vim.lsp.codelens then
-        utils.lsp.on_supports_method("textDocument/codeLens", function(client, buffer)
-          vim.lsp.codelens.refresh()
-          vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-            buffer = buffer,
-            callback = vim.lsp.codelens.refresh,
-          })
-        end)
-      end
+    -- code lens
+    if opts.codelens.enabled and vim.lsp.codelens then
+      utils.lsp.on_supports_method("textDocument/codeLens", function(client, buffer)
+        vim.lsp.codelens.refresh()
+        vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+          buffer = buffer,
+          callback = vim.lsp.codelens.refresh,
+        })
+      end)
     end
 
     -- diagnostics settings
@@ -122,7 +120,7 @@ return {
     capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
     -- load server
-    local servers = require("plugins.lsp.servers")
+    local servers = require("plugins.lsp.servers").servers
 
     ---@diagnostic disable-next-line: missing-fields
     require("mason-lspconfig").setup({
