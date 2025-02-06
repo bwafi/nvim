@@ -7,8 +7,8 @@ local map = vim.keymap.set
 map("n", "<leader>i", "<cmd>lua vim.diagnostic.open_float()<CR>", { noremap = true, silent = true, desc = "Show Diagnostic Float" })
 
 -- better ^ adn $
-map({ "x", "n", "s" }, "<S-h>", "^", { noremap = true, silent = true, desc = "Quit all" })
-map({ "x", "n", "s" }, "<S-l>", "$", { noremap = true, silent = true, desc = "Quit all" })
+-- map({ "x", "n", "s" }, "<S-h>", "^", { noremap = true, silent = true, desc = "Quit all" })
+-- map({ "x", "n", "s" }, "<S-l>", "$", { noremap = true, silent = true, desc = "Quit all" })
 
 -- quit all
 map("n", "<leader>qq", "<cmd>qa<cr>", { noremap = true, silent = true, desc = "Quit all" })
