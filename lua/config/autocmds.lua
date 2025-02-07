@@ -79,3 +79,34 @@ autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "*.norg" },
   command = "set conceallevel=3",
 })
+
+-- Auto create dir when saving a file, in case some intermediate directory does not exist
+autocmd({ "BufWritePre" }, {
+  group = augroup("auto_create_dir"),
+  callback = function(event)
+    if event.match:match("^%w%w+:[\\/][\\/]") then
+      return
+    end
+    local file = vim.uv.fs_realpath(event.match) or event.match
+    vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
+  end,
+})
+
+-- wrap and check for spell in text filetypes
+autocmd("FileType", {
+  group = augroup("wrap_spell"),
+  pattern = { "text", "plaintex", "typst", "gitcommit", "markdown" },
+  callback = function()
+    vim.opt_local.wrap = true
+    vim.opt_local.spell = true
+  end,
+})
+
+-- make it easier to close man-files when opened inline
+autocmd("FileType", {
+  group = augroup("man_unlisted"),
+  pattern = { "man" },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+  end,
+})
