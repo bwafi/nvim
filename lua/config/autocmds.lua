@@ -4,7 +4,7 @@ local function augroup(name)
 end
 
 -- Check if we need to reload the file when it changed
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
   group = augroup("checktime"),
   callback = function()
     if vim.o.buftype ~= "nofile" then
@@ -75,7 +75,7 @@ autocmd("BufReadPost", {
 })
 
 -- conceal level for neorg
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+autocmd({ "BufEnter", "BufWinEnter" }, {
   pattern = { "*.norg" },
   command = "set conceallevel=3",
 })
