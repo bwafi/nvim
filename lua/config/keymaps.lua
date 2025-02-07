@@ -130,19 +130,13 @@ map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 -- toggle word wrap
 map("n", "<leader>uw", "<cmd>setlocal wrap!<cr>", { desc = "Toggle Wrap", noremap = true, silent = true })
 
+-- stylua: ignore start
 -- Terminal Mappings
-map("n", "<leader>fT", function()
-  Snacks.terminal()
-end, { desc = "Terminal (cwd)" })
-map("n", "<leader>ft", function()
-  Snacks.terminal()
-end, { desc = "Terminal (Root Dir)" })
-map("n", "<c-/>", function()
-  Snacks.terminal()
-end, { desc = "Terminal (Root Dir)" })
-map("n", "<c-_>", function()
-  Snacks.terminal()
-end, { desc = "which_key_ignore" })
+map("n", "<leader>fT", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
+map("n", "<leader>ft", function() Snacks.terminal(nil, { cwd = utils.root() }) end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-/>",      function() Snacks.terminal(nil, { cwd = utils.root() }) end, { desc = "Terminal (Root Dir)" })
+map("n", "<c-_>",      function() Snacks.terminal(nil, { cwd = utils.root() }) end, { desc = "which_key_ignore" })
+-- stylua: ignore end
 
 map("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
 map("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
