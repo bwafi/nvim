@@ -4,6 +4,7 @@ return {
   lazy = false,
   ---@type snacks.Config
   opts = {
+    image = {},
     bigfile = { enabled = true },
     dashboard = {
       preset = {
