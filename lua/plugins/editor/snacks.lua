@@ -101,6 +101,7 @@ return {
     { "<leader>uC", function() Snacks.picker.colorschemes() end, desc = "Colorschemes" },
     -- Lsp
     { "<leader>ss", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+    { "<leader>cl", function() Snacks.picker.lsp_config() end, desc = "Lsp Info" },
 
     -- Snacks explorer
     { "<leader>e", function() Snacks.explorer({ cwd = utils.root() }) end, desc = "Explorer Snacks (root dir)" },
